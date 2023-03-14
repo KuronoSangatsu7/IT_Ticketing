@@ -32,7 +32,7 @@ export default function SideBar() {
 			boxShadow="gray"
 			gap='4'
 		>
-			<Box display="flex" alignItems='center' gap="2" pl="2" pt='5' pb='5'>
+			<Box display="flex" alignItems='center' gap="2" pl="2" pt='5' pb='5' borderTopWidth='10px' borderTopColor='cyan.700' >
 				<Icon
 					as={HiOutlineAtSymbol}
 					h="35px"
