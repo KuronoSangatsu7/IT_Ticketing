@@ -13,7 +13,7 @@ const theme = extendTheme({
 		body: cairo.style.fontFamily,
 	},
 	shadows: {
-		gray: "10px 0px 10px 0px rgba(179, 179, 179, 0.2);",
+		gray: "0px 0px 10px 10px rgba(179, 179, 179, 0.2);",
 	},
 	colors: {
 		darkBlue: "#131a4e",

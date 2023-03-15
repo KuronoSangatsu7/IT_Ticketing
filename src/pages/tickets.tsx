@@ -1,8 +1,8 @@
 import { Divider, Flex } from "@chakra-ui/react"
 import Ticket from "@/components/Ticket"
 import { ticketDetailsType } from "@/types/ticketTypes"
-import NavBar from "@/components/NavBar/NavBar"
 import NewItem from "@/components/NewItem"
+import Header from "@/components/Header"
 
 const tickets: ticketDetailsType[] = Object.values({
 	"0": {
@@ -36,8 +36,8 @@ const tickets: ticketDetailsType[] = Object.values({
 
 export default function Tickets() {
 	return (
-		<Flex direction="column">
-			<NavBar />
+		<Flex direction="column"  h='full' borderRadius='lg'>
+			<Header title="Tickets" />
 			{tickets.map((ticket) => (
 				<>
 					<Ticket {...ticket} key={ticket["ticket_id"]} /> <Divider />
