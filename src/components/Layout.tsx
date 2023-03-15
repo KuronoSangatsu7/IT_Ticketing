@@ -8,8 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			templateAreas={`
 					"nav main"
 					"nav main"`}
-			gridTemplateRows={"50px 1fr"}
-			gridTemplateColumns={"300px 1fr"}
+			gridTemplateColumns={"80px 1fr"}
 			as="main"
 			h="100vh"
 		>

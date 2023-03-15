@@ -1,51 +1,90 @@
-import { Divider, Flex, Heading, Box, Icon, Spacer } from "@chakra-ui/react"
+import {
+	Divider,
+	Flex,
+	Heading,
+	Box,
+	Icon,
+	Spacer,
+	VStack,
+} from "@chakra-ui/react"
 import SideItem from "./SideItem"
 import {
-	HiOutlineAtSymbol,
+	HiTicket,
 	HiOutlineTicket,
+	HiHome,
 	HiOutlineHome,
+	HiEmojiSad,
 	HiOutlineEmojiSad,
+	HiUserGroup,
 	HiOutlineUserGroup,
+	HiChartSquareBar,
 	HiOutlineChartSquareBar,
 } from "react-icons/hi"
 
+import { HiOutlineWrenchScrewdriver } from "react-icons/hi2"
+
 const sideItems = [
-	{ pageTitle: "Home", pagePath: "/", icon: HiOutlineHome },
-	{ pageTitle: "Tickets", pagePath: "/tickets", icon: HiOutlineTicket },
-	{ pageTitle: "Symptoms", pagePath: "/symptoms", icon: HiOutlineEmojiSad },
-	{ pageTitle: "Techs", pagePath: "/techs", icon: HiOutlineUserGroup },
+	{
+		pageTitle: "Home",
+		pagePath: "/",
+		inactiveIcon: HiOutlineHome,
+		activeIcon: HiHome,
+	},
+	{
+		pageTitle: "Tickets",
+		pagePath: "/tickets",
+		inactiveIcon: HiOutlineTicket,
+		activeIcon: HiTicket,
+	},
+	{
+		pageTitle: "Symptoms",
+		pagePath: "/symptoms",
+		inactiveIcon: HiOutlineEmojiSad,
+		activeIcon: HiEmojiSad,
+	},
+	{
+		pageTitle: "Techs",
+		pagePath: "/techs",
+		inactiveIcon: HiOutlineUserGroup,
+		activeIcon: HiUserGroup,
+	},
 	{
 		pageTitle: "Analytics",
 		pagePath: "/analytics",
-		icon: HiOutlineChartSquareBar,
+		inactiveIcon: HiOutlineChartSquareBar,
+		activeIcon: HiChartSquareBar,
 	},
 ]
+
+const hovered = false
 
 export default function SideBar() {
 	return (
 		<Flex
 			as="aside"
 			direction="column"
-			borderRight="1px"
-			borderColor="blackAlpha.400"
 			h="full"
 			boxShadow="gray"
-			gap='4'
+			gap="4"
+			alignItems="center"
+			bg="darkBlue"
 		>
-			<Box display="flex" alignItems='center' gap="2" p='3' pb='0' borderTopWidth='10px' borderTopColor='cyan.700' justifyContent='space-between'>
-				
-				<Heading fontWeight='light' letterSpacing="wide">
-					IT Ticketing
-				</Heading>
-			</Box>
-			
-			<Divider />
-
-			<Box>
+			<Icon
+				h="50px"
+				w="50px"
+				m="4"
+				color="whiteAlpha.900"
+				as={HiOutlineWrenchScrewdriver}
+			/>
+			<VStack w="full">
 				{sideItems.map((sideItem) => (
-					<SideItem {...sideItem} key={sideItem.pagePath} />
+					<SideItem
+						{...sideItem}
+						expanded={hovered}
+						key={sideItem.pagePath}
+					/>
 				))}
-			</Box>
+			</VStack>
 		</Flex>
 	)
 }

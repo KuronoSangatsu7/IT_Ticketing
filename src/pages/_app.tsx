@@ -14,6 +14,11 @@ const theme = extendTheme({
 	},
 	shadows: {
 		gray: '10px 0px 10px 0px rgba(179, 179, 179, 0.2);'
+	},
+	colors: {
+		darkBlue: '#131a4e',
+		backgroundGray: '#f0f1f5',
+		activeItem: '#717694'
 	}
 })
 

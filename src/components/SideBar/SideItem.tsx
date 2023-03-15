@@ -6,44 +6,61 @@ import { IconType } from "react-icons"
 type sideItemProps = {
 	pagePath: string
 	pageTitle: string
-	icon: IconType
+	inactiveIcon: IconType
+	activeIcon: IconType
+	expanded: boolean
 }
 
-export default function SideItem({ pagePath, pageTitle, icon }: sideItemProps) {
+export default function SideItem({
+	pagePath,
+	pageTitle,
+	activeIcon,
+	inactiveIcon,
+	expanded,
+}: sideItemProps) {
 	const router = useRouter()
 
 	return router.pathname == pagePath ? (
 		<Link
 			as={NextLink}
 			href={pagePath}
-			bg="cyan.50"
+			bg="activeItem"
 			h="50px"
 			display="flex"
 			alignItems="center"
+			justifyContent="center"
 			gap="2"
+			w='70%'
+			borderLeftRadius="lg"
+			alignSelf='end'
 			_hover={{}}
 		>
-			<Box h="100%" w="5px" bg="cyan.700" />
-			<Icon as={icon} color="cyan.700" h="20px" w="20px" />
-			<Box p="5px" textColor="cyan.700" fontWeight="bold">
-				{pageTitle}
-			</Box>
+			<Icon as={activeIcon} color="whiteAlpha.900" h="35px" w="35px" />
+			{expanded && (
+				<Box p="5px" textColor="cyan.700" fontWeight="bold">
+					{pageTitle}
+				</Box>
+			)}
 		</Link>
 	) : (
 		<Link
-			as={NextLink}
-			href={pagePath}
-			h="50px"
-			display="flex"
-			alignItems="center"
-			gap="2"
-			_hover={{}}
+		as={NextLink}
+		href={pagePath}
+		h="50px"
+		display="flex"
+		alignItems="center"
+		justifyContent="center"
+		gap="2"
+		w='70%'
+		borderLeftRadius="lg"
+		_hover={{}}
 		>
-			<Box h="100%" w="5px" bg="white" />
-			<Icon as={icon} color="blackAlpha.600" h="20px" w="20px" />
-			<Box p="5px" textColor="blackAlpha.600" fontWeight="bold">
-				{pageTitle}
-			</Box>
+			<Icon as={inactiveIcon} color="whiteAlpha.900" h="35px" w="35px" />
+			{expanded && (
+				<Box p="5px" textColor="blackAlpha.600" fontWeight="bold">
+					{pageTitle}
+				</Box>
+			)}
 		</Link>
 	)
 }
