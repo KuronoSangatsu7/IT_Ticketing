@@ -32,17 +32,15 @@ export default function SideBar() {
 			boxShadow="gray"
 			gap='4'
 		>
-			<Box display="flex" alignItems='center' gap="2" pl="2" pt='5' pb='5' borderTopWidth='10px' borderTopColor='cyan.700' >
-				<Icon
-					as={HiOutlineAtSymbol}
-					h="35px"
-					w="35px"
-					color="blackAlpha.700"
-				/>
-				<Heading fontWeight='light' ml="5" letterSpacing="wide">
+			<Box display="flex" alignItems='center' gap="2" p='3' pb='0' borderTopWidth='10px' borderTopColor='cyan.700' justifyContent='space-between'>
+				
+				<Heading fontWeight='light' letterSpacing="wide">
 					IT Ticketing
 				</Heading>
 			</Box>
+			
+			<Divider />
+
 			<Box>
 				{sideItems.map((sideItem) => (
 					<SideItem {...sideItem} key={sideItem.pagePath} />

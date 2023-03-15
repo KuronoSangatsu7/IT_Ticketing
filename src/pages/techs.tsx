@@ -1,3 +1,4 @@
+import NewItem from "@/components/NewItem"
 import Tech from "@/components/Tech"
 import { techDetailsType } from "@/types/techTypes"
 import { Flex, Divider } from "@chakra-ui/react"
@@ -28,6 +29,10 @@ export default function Techs() {
 					<Divider />
 				</>
 			))}
+			<>
+				<NewItem />
+				<Divider />
+			</>
 		</Flex>
 	)
 }

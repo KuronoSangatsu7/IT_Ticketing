@@ -2,7 +2,7 @@ import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import Layout from "@/components/Layout"
-import { Cairo, Open_Sans } from "@next/font/google"
+import { Cairo, Open_Sans } from "next/font/google"
 
 const cairo = Cairo({ subsets: ["latin"] })
 const open_sans = Open_Sans({subsets: ['latin']})

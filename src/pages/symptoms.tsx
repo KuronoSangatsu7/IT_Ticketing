@@ -1,3 +1,4 @@
+import NewItem from "@/components/NewItem"
 import Symptom from "@/components/Symptom"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { Flex, Divider } from "@chakra-ui/react"
@@ -25,6 +26,10 @@ export default function Symptoms() {
 					<Divider />
 				</>
 			))}
+			<>
+				<NewItem />
+				<Divider />
+			</>
 		</Flex>
 	)
 }
