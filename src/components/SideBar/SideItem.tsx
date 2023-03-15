@@ -8,7 +8,6 @@ type sideItemProps = {
 	pageTitle: string
 	inactiveIcon: IconType
 	activeIcon: IconType
-	expanded: boolean
 }
 
 export default function SideItem({
@@ -16,7 +15,6 @@ export default function SideItem({
 	pageTitle,
 	activeIcon,
 	inactiveIcon,
-	expanded,
 }: sideItemProps) {
 	const router = useRouter()
 
@@ -29,38 +27,32 @@ export default function SideItem({
 			display="flex"
 			alignItems="center"
 			justifyContent="center"
+			flexDirection={{ base: "column" }}
+			borderTopLeftRadius='lg'
+			borderBottomLeftRadius={{md: 'lg'}}
+			borderTopRightRadius={{base: 'lg', md: 'none'}}
 			gap="2"
-			w='70%'
-			borderLeftRadius="lg"
-			alignSelf='end'
+			w="70%"
+			alignSelf="end"
 			_hover={{}}
 		>
 			<Icon as={activeIcon} color="whiteAlpha.900" h="35px" w="35px" />
-			{expanded && (
-				<Box p="5px" textColor="cyan.700" fontWeight="bold">
-					{pageTitle}
-				</Box>
-			)}
 		</Link>
 	) : (
 		<Link
-		as={NextLink}
-		href={pagePath}
-		h="50px"
-		display="flex"
-		alignItems="center"
-		justifyContent="center"
-		gap="2"
-		w='70%'
-		borderLeftRadius="lg"
-		_hover={{}}
+			as={NextLink}
+			href={pagePath}
+			h="50px"
+			display="flex"
+			alignItems="center"
+			justifyContent="center"
+			gap="2"
+			w="70%"
+			borderLeftRadius="lg"
+			alignSelf="center"
+			_hover={{}}
 		>
 			<Icon as={inactiveIcon} color="whiteAlpha.900" h="35px" w="35px" />
-			{expanded && (
-				<Box p="5px" textColor="blackAlpha.600" fontWeight="bold">
-					{pageTitle}
-				</Box>
-			)}
 		</Link>
 	)
 }

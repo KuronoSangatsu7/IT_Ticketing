@@ -5,10 +5,15 @@ import SideBar from "./SideBar/SideBar"
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<Grid
-			templateAreas={`
-					"nav main"
-					"nav main"`}
-			gridTemplateColumns={"80px 1fr"}
+			templateAreas={{
+				base: `
+				"nav"
+				"main"`,
+				md: `
+				"nav main"`,
+			}}
+			gridTemplateColumns={{ base: "auto", md: "80px 1fr" }}
+			gridTemplateRows={{ base: "65px 1fr", md: "auto" }}
 			as="main"
 			h="100vh"
 		>

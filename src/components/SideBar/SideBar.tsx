@@ -1,11 +1,7 @@
 import {
-	Divider,
 	Flex,
-	Heading,
-	Box,
 	Icon,
-	Spacer,
-	VStack,
+	Stack
 } from "@chakra-ui/react"
 import SideItem from "./SideItem"
 import {
@@ -56,13 +52,11 @@ const sideItems = [
 	},
 ]
 
-const hovered = false
-
 export default function SideBar() {
 	return (
 		<Flex
 			as="aside"
-			direction="column"
+			direction={{base: "row", md: "column"}}
 			h="full"
 			boxShadow="gray"
 			gap="4"
@@ -76,15 +70,14 @@ export default function SideBar() {
 				color="whiteAlpha.900"
 				as={HiOutlineWrenchScrewdriver}
 			/>
-			<VStack w="full">
+			<Stack direction={{base: 'row', md:'column'}} w='full' h='full'>
 				{sideItems.map((sideItem) => (
 					<SideItem
 						{...sideItem}
-						expanded={hovered}
 						key={sideItem.pagePath}
 					/>
 				))}
-			</VStack>
+			</Stack>
 		</Flex>
 	)
 }

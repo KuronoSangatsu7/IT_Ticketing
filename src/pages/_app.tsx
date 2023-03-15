@@ -5,7 +5,7 @@ import Layout from "@/components/Layout"
 import { Cairo, Open_Sans } from "next/font/google"
 
 const cairo = Cairo({ subsets: ["latin"] })
-const open_sans = Open_Sans({subsets: ['latin']})
+const open_sans = Open_Sans({ subsets: ["latin"] })
 
 const theme = extendTheme({
 	fonts: {
@@ -13,12 +13,12 @@ const theme = extendTheme({
 		body: cairo.style.fontFamily,
 	},
 	shadows: {
-		gray: '10px 0px 10px 0px rgba(179, 179, 179, 0.2);'
+		gray: "10px 0px 10px 0px rgba(179, 179, 179, 0.2);",
 	},
 	colors: {
-		darkBlue: '#131a4e',
-		backgroundGray: '#f0f1f5',
-		activeItem: '#717694'
+		darkBlue: "#131a4e",
+		backgroundGray: "#f0f1f5",
+		activeItem: "#717694",
 	}
 })
 
