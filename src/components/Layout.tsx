@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			h="100vh"
 			bg='backgroundGray'
 		>
-			<GridItem area="main" h='95%' w='95%' alignSelf='center' borderRadius='lg' justifySelf='center' boxShadow='gray'>{children}</GridItem>
+			<GridItem area="main" h='95%' w='95%' alignSelf='center' borderRadius='xl' justifySelf='center' boxShadow='gray'>{children}</GridItem>
 			<GridItem area="nav">
 				<SideBar />
 			</GridItem>

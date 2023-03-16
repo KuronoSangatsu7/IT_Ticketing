@@ -19,17 +19,11 @@ const symptoms: symptomDetailsType[] = Object.values({
 
 export default function Symptoms() {
 	return (
-		<Flex direction="column">
+		<Flex direction="column" h="full" borderRadius="xl">
 			{symptoms.map((symptom) => (
-				<>
-					<Symptom {...symptom} key={symptom["symptom_id"]} />
-					<Divider />
-				</>
+				<Symptom {...symptom} key={symptom["symptom_id"]} />
 			))}
-			<>
-				<NewItem />
-				<Divider />
-			</>
+			<NewItem />
 		</Flex>
 	)
 }

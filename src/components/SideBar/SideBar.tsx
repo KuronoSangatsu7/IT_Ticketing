@@ -1,8 +1,4 @@
-import {
-	Flex,
-	Icon,
-	Stack
-} from "@chakra-ui/react"
+import { Flex, Icon, Stack } from "@chakra-ui/react"
 import SideItem from "./SideItem"
 import {
 	HiTicket,
@@ -55,8 +51,8 @@ const sideItems = [
 export default function SideBar() {
 	return (
 		<Flex
-			as="aside"
-			direction={{base: "row", md: "column"}}
+			as="nav"
+			direction={{ base: "row", md: "column" }}
 			h="full"
 			boxShadow="gray"
 			gap="4"
@@ -70,12 +66,13 @@ export default function SideBar() {
 				color="whiteAlpha.900"
 				as={HiOutlineWrenchScrewdriver}
 			/>
-			<Stack direction={{base: 'row', md:'column'}} w='full' h='full'>
+			<Stack
+				direction={{ base: "row", md: "column" }}
+				w={{ base: "70%", md: "full" }}
+				h="full"
+			>
 				{sideItems.map((sideItem) => (
-					<SideItem
-						{...sideItem}
-						key={sideItem.pagePath}
-					/>
+					<SideItem {...sideItem} key={sideItem.pagePath} />
 				))}
 			</Stack>
 		</Flex>

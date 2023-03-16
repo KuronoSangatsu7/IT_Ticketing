@@ -6,7 +6,7 @@ export interface ticketDetailsType {
 	employee_id: string
 	first_name: string
 	last_name: string
-	notes: ""
+	notes: string
 	resolved: boolean
 	symptom: string
 	ticket_id: string

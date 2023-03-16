@@ -22,17 +22,12 @@ const techs: techDetailsType[] = Object.values({
 
 export default function Techs() {
 	return (
-		<Flex direction="column">
+		<Flex direction="column" h="full" borderRadius="xl">
 			{techs.map((tech) => (
-				<>
-					<Tech {...tech} key={tech["tech_id"]} />
-					<Divider />
-				</>
+				<Tech {...tech} key={tech["tech_id"]} />
 			))}
-			<>
-				<NewItem />
-				<Divider />
-			</>
+
+			<NewItem />
 		</Flex>
 	)
 }

@@ -1,11 +1,12 @@
 import { Divider, Flex } from "@chakra-ui/react"
-import Ticket from "@/components/Ticket"
+import Ticket from "@/components/Ticket/Ticket"
+import TicketLabel from "@/components/Ticket/TicketLabel"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import NewItem from "@/components/NewItem"
 import Header from "@/components/Header"
 
 const tickets: ticketDetailsType[] = Object.values({
-	"0": {
+	"1": {
 		assigned_tech: "Shelley Ginder",
 		department: "General Issues",
 		description:
@@ -17,7 +18,8 @@ const tickets: ticketDetailsType[] = Object.values({
 		notes: "",
 		resolved: false,
 		symptom: "Computer wont turn on",
-		ticket_id: "0",
+		ticket_id: "1",
+		isLabel: false,
 	},
 	"5": {
 		assigned_tech: "Justin Sample",
@@ -31,22 +33,19 @@ const tickets: ticketDetailsType[] = Object.values({
 		resolved: true,
 		symptom: "Issues with email",
 		ticket_id: "5",
+		isLabel: false,
 	},
 })
 
 export default function Tickets() {
 	return (
-		<Flex direction="column"  h='full' borderRadius='lg'>
+		<Flex direction="column" h="full" borderRadius="xl">
 			<Header title="Tickets" />
+			<TicketLabel />
 			{tickets.map((ticket) => (
-				<>
-					<Ticket {...ticket} key={ticket["ticket_id"]} /> <Divider />
-				</>
+				<Ticket {...ticket} key={ticket["ticket_id"]} />
 			))}
-			<>
-				<NewItem />
-				<Divider />
-			</>
+			<NewItem />
 		</Flex>
 	)
 }
