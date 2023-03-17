@@ -39,7 +39,7 @@ const tickets: ticketDetailsType[] = Object.values({
 
 export default function Tickets() {
 	return (
-		<Flex direction="column" h="full" borderRadius="xl">
+		<Flex direction="column" h="full" borderRadius="xl"  >
 			<Header title="Tickets" />
 			<TicketLabel />
 			{tickets.map((ticket) => (

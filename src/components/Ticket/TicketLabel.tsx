@@ -2,21 +2,33 @@ import { Grid, GridItem, Box, Divider } from "@chakra-ui/react"
 
 export default function TicketLabel() {
 	return (
-        <>
-		<Box paddingY="15px" paddingX="25px" fontWeight='medium' fontSize='xs' color='gray.500'>
-			<Grid templateColumns="repeat(21, 1fr)" columnGap={1} alignItems='start' justifyContent='start'>
-				<GridItem colSpan={7}>Description</GridItem>
-				<GridItem>Email</GridItem>
-				<GridItem>First Name</GridItem>
-				<GridItem>Last Name</GridItem>
-				<GridItem>Employee ID</GridItem>
-				<GridItem colSpan={3}>Symptom</GridItem>
-				<GridItem colSpan={2}>Department</GridItem>
-				<GridItem colSpan={2}>Assigned Tech</GridItem>
-				<GridItem w='105px'>Status</GridItem>
-			</Grid>
-		</Box>
-        <Divider borderColor="blackAlpha.400" />
-        </>
+		<>
+			<Box
+				paddingY="15px"
+				paddingX="25px"
+				fontWeight='medium'
+				fontSize='sm'
+				color="gray.500"
+				display={{base: 'none', lg: 'block'}}
+			>
+				<Grid
+					templateColumns="repeat(10, 1fr)"
+					columnGap={1}
+					letterSpacing="tight"
+				>
+					<GridItem colSpan={2} minW="180px">
+						Symptom
+					</GridItem>
+					<GridItem minW="75px" >First Name</GridItem>
+					<GridItem minW="75px">Last Name</GridItem>
+					<GridItem minW="75px">Employee ID</GridItem>
+					<GridItem minW="75px">Contact Email</GridItem>
+					<GridItem minW="120px">Department</GridItem>
+					<GridItem minW="120px" >Assigned Tech</GridItem>
+					<GridItem>Status</GridItem>
+				</Grid>
+			</Box>
+			<Divider borderColor="blackAlpha.400" display={{base: 'none', lg: 'block'}} />
+		</>
 	)
 }

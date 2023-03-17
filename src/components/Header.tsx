@@ -18,6 +18,7 @@ export default function Header({ title }: { title: string }) {
 			paddingX="8"
 			alignItems="center"
 			flexDirection="column"
+			minHeight='75px'
 		>
 			<Flex w="full">
 				<Heading>{title}</Heading>
@@ -32,7 +33,6 @@ export default function Header({ title }: { title: string }) {
 					New Ticket
 				</Button>
 			</Flex>
-			<Spacer />
 			<Divider borderColor="blackAlpha.800" />
 		</VStack>
 	)
