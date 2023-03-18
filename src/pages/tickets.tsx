@@ -19,7 +19,6 @@ const tickets: ticketDetailsType[] = Object.values({
 		resolved: false,
 		symptom: "Computer wont turn on",
 		ticket_id: "1",
-		isLabel: false,
 	},
 	"5": {
 		assigned_tech: "Justin Sample",
@@ -33,7 +32,6 @@ const tickets: ticketDetailsType[] = Object.values({
 		resolved: true,
 		symptom: "Issues with email",
 		ticket_id: "5",
-		isLabel: false,
 	},
 })
 

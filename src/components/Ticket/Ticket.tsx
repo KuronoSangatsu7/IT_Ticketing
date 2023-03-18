@@ -29,8 +29,8 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 				_hover={{ bg: "blackAlpha.200" }}
 				w={{ base: "80%", lg: "full" }}
 				alignSelf="center"
-				my={{base: "5px", lg: '0'}}
-				shadow={{base: 'gray', lg: 'none'}}
+				my={{ base: "5px", lg: "0" }}
+				shadow={{ base: "gray", lg: "none" }}
 			>
 				<Grid
 					templateColumns={{
@@ -38,9 +38,10 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 						lg: "repeat(10, 1fr)",
 					}}
 					columnGap={1}
+					rowGap={4}
 					fontSize={{ base: "xl", lg: "md" }}
 					letterSpacing={{ base: "wider", lg: "tight" }}
-					alignItems='center'
+					alignItems="center"
 				>
 					<GridItem
 						colSpan={2}
@@ -89,7 +90,6 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 						colSpan={{ base: 2, lg: "auto" }}
 						display="flex"
 						flexDirection="column"
-						py='10px'
 					>
 						<Box
 							display={{ base: "block", lg: "none" }}
@@ -107,7 +107,6 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 						colSpan={{ base: 2, lg: "auto" }}
 						display="flex"
 						flexDirection="column"
-						py='10px'
 					>
 						<Box
 							display={{ base: "block", lg: "none" }}
@@ -115,7 +114,9 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 							fontSize="sm"
 							color="gray.500"
 							letterSpacing="tight"
-						>Assigned Tech:</Box>
+						>
+							Assigned Tech:
+						</Box>
 						{ticketDetails.assigned_tech}
 					</GridItem>
 					<GridItem colSpan={{ base: 2, lg: "auto" }}>
@@ -124,8 +125,8 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 								size="lg"
 								colorScheme="green"
 								borderRadius="full"
-								w={{base: 'full', lg: 'auto'}}
-								justifyContent='center'
+								w={{ base: "full", lg: "auto" }}
+								justifyContent="center"
 							>
 								<TagLeftIcon boxSize="12px" as={CheckIcon} />
 								<TagLabel>Resolved</TagLabel>
@@ -136,8 +137,8 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 								px="4"
 								colorScheme="orange"
 								borderRadius="full"
-								w={{base: 'full', lg: 'auto'}}
-								justifyContent='center'
+								w={{ base: "full", lg: "auto" }}
+								justifyContent="center"
 							>
 								<TagLeftIcon boxSize="12px" as={TimeIcon} />
 								<TagLabel>Pending</TagLabel>

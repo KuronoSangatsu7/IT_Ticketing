@@ -1,7 +1,9 @@
 import NewItem from "@/components/NewItem"
-import Tech from "@/components/Tech"
+import Tech from "@/components/Tech/Tech"
 import { techDetailsType } from "@/types/techTypes"
 import { Flex, Divider } from "@chakra-ui/react"
+import Header from "@/components/Header"
+import TechLabel from "@/components/Tech/TechLabel"
 
 const techs: techDetailsType[] = Object.values({
 	"1": {
@@ -23,6 +25,8 @@ const techs: techDetailsType[] = Object.values({
 export default function Techs() {
 	return (
 		<Flex direction="column" h="full" borderRadius="xl">
+			<Header title="Techs" />
+			<TechLabel />
 			{techs.map((tech) => (
 				<Tech {...tech} key={tech["tech_id"]} />
 			))}
