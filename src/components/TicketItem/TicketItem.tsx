@@ -22,7 +22,7 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 		<>
 			<Link
 				as={NextLink}
-				href="/"
+				href={`/ticket/${ticketDetails.id}`}
 				paddingY="15px"
 				paddingX="25px"
 				borderRadius={{ base: "lg", lg: "none" }}

@@ -8,7 +8,7 @@ export default function Symptom(symptomDetails: symptomDetailsType) {
 		<>
 			<Link
 				as={NextLink}
-				href="/"
+				href={`/symptom/${symptomDetails.id}`}
 				paddingY="15px"
 				paddingX="25px"
 				borderRadius={{ base: "lg", lg: "none" }}
@@ -43,7 +43,7 @@ export default function Symptom(symptomDetails: symptomDetailsType) {
 						>
 							Symptom:
 						</Box>
-						{symptomDetails.symptom}
+						{symptomDetails.name}
 					</GridItem>
 					<GridItem
 						colSpan={{ base: 2, lg: 4 }}

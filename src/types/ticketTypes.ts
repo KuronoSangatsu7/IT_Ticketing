@@ -9,5 +9,5 @@ export interface ticketDetailsType {
 	notes: string
 	resolved: boolean
 	symptom: string
-	ticket_id: string
+	id: string
 }

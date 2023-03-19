@@ -8,7 +8,7 @@ export default function Tech(techDetails: techDetailsType) {
 		<>
 			<Link
 				as={NextLink}
-				href="/"
+				href={`/tech/${techDetails.id}`}
 				paddingY="15px"
 				paddingX="25px"
 				borderRadius={{ base: "lg", lg: "none" }}

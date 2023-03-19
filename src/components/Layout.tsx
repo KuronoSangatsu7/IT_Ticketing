@@ -16,9 +16,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			gridTemplateRows={{ base: "65px 1fr", md: "auto" }}
 			as="main"
 			h="100vh"
-			bg='backgroundGray'
+			bg="backgroundGray"
 		>
-			<GridItem area="main" h='95%' w='95%' alignSelf='center' borderRadius='xl' justifySelf='center' boxShadow='gray'>{children}</GridItem>
+			<GridItem
+				sx={{
+					"::-webkit-scrollbar": {
+						display: "none",
+					},
+				}}
+				area="main"
+				h="95%"
+				w="95%"
+				alignSelf="center"
+				borderRadius="xl"
+				justifySelf="center"
+				boxShadow="gray"
+				display="flex"
+				justifyContent="center"
+				overflow="scroll"
+			>
+				{children}
+			</GridItem>
 			<GridItem area="nav">
 				<SideBar />
 			</GridItem>

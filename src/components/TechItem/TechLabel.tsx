@@ -17,7 +17,7 @@ export default function TechLabel() {
 					letterSpacing="tight"
 				>
 					<GridItem colSpan={4}>Name</GridItem>
-					<GridItem colSpan={2}>Email</GridItem>
+					<GridItem colSpan={2}>IT Email</GridItem>
 					<GridItem colSpan={4}>Department</GridItem>
 					<GridItem colSpan={3}>Assigned Tickets</GridItem>
 				</Grid>

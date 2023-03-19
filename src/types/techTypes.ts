@@ -3,5 +3,5 @@ export interface techDetailsType {
     department: string,
     assigned_tickets: number,
     email: string,
-    tech_id: string
+    id: string
 }
