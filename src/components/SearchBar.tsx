@@ -5,10 +5,9 @@ export function SearchBar() {
 	return (
 		<InputGroup>
 			<Input type="text" placeholder="Search..." />
-			<InputRightElement
-				pointerEvents="none"
-				children={<Search2Icon color="gray.300" />}
-			/>
+			<InputRightElement pointerEvents="none">
+				<Search2Icon color="gray.300" />
+			</InputRightElement>
 		</InputGroup>
 	)
 }

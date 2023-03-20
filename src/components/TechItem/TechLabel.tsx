@@ -22,7 +22,10 @@ export default function TechLabel() {
 					<GridItem colSpan={3}>Assigned Tickets</GridItem>
 				</Grid>
 			</Box>
-			<Divider borderColor="blackAlpha.400"  display={{base: 'none', lg: 'block'}}/>
+			<Divider
+				borderColor="blackAlpha.400"
+				display={{ base: "none", lg: "block" }}
+			/>
 		</>
 	)
 }

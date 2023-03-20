@@ -26,12 +26,14 @@ import { getAllCollectionItems } from "@/lib/tickets"
 // })
 
 export default function Techs() {
-
 	const [techs, setTechs] = useState<techDetailsType[]>([])
 
 	useEffect(() => {
 		const getTickets = async () => {
-			const data = await getAllCollectionItems("techs", "data") as Promise<techDetailsType>[]
+			const data = (await getAllCollectionItems(
+				"techs",
+				"data"
+			)) as Promise<techDetailsType>[]
 
 			return data
 		}
@@ -42,8 +44,8 @@ export default function Techs() {
 	}, [])
 
 	return (
-		<Flex direction="column" h="full" w='full' borderRadius="xl">
-			<Header title="Techs" buttonName="New Tech"/>
+		<Flex direction="column" h="full" w="full" borderRadius="xl">
+			<Header title="Techs" buttonName="New Tech" />
 			<TechLabel />
 			{techs.map((tech) => (
 				<Tech {...tech} key={tech.id} />

@@ -20,7 +20,10 @@ export default function SymptomLabel() {
 					<GridItem colSpan={4}>Department</GridItem>
 				</Grid>
 			</Box>
-			<Divider borderColor="blackAlpha.400"  display={{base: 'none', lg: 'block'}}/>
+			<Divider
+				borderColor="blackAlpha.400"
+				display={{ base: "none", lg: "block" }}
+			/>
 		</>
 	)
 }

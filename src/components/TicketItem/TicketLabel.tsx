@@ -6,10 +6,10 @@ export default function TicketLabel() {
 			<Box
 				paddingY="15px"
 				paddingX="25px"
-				fontWeight='medium'
-				fontSize='sm'
+				fontWeight="medium"
+				fontSize="sm"
 				color="gray.500"
-				display={{base: 'none', lg: 'block'}}
+				display={{ base: "none", lg: "block" }}
 			>
 				<Grid
 					templateColumns="repeat(10, 1fr)"
@@ -19,16 +19,19 @@ export default function TicketLabel() {
 					<GridItem colSpan={2} minW="180px">
 						Symptom
 					</GridItem>
-					<GridItem minW="75px" >First Name</GridItem>
+					<GridItem minW="75px">First Name</GridItem>
 					<GridItem minW="75px">Last Name</GridItem>
 					<GridItem minW="75px">Employee ID</GridItem>
 					<GridItem minW="75px">Contact Email</GridItem>
 					<GridItem minW="120px">Department</GridItem>
-					<GridItem minW="120px" >Assigned Tech</GridItem>
+					<GridItem minW="120px">Assigned Tech</GridItem>
 					<GridItem>Status</GridItem>
 				</Grid>
 			</Box>
-			<Divider borderColor="blackAlpha.400" display={{base: 'none', lg: 'block'}} />
+			<Divider
+				borderColor="blackAlpha.400"
+				display={{ base: "none", lg: "block" }}
+			/>
 		</>
 	)
 }

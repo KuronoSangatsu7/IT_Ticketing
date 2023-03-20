@@ -81,7 +81,7 @@ export default function Tech(techDetails: techDetailsType) {
 						>
 							Assigned Tickets:
 						</Box>
-						<Box as="span" pl='40px' fontWeight='extrabold'>
+						<Box as="span" pl="40px" fontWeight="extrabold">
 							{techDetails.assigned_tickets}
 						</Box>
 					</GridItem>

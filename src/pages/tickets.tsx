@@ -43,7 +43,10 @@ export default function Tickets() {
 
 	useEffect(() => {
 		const getTickets = async () => {
-			const data = await getAllCollectionItems("tickets", "data") as Promise<ticketDetailsType>[]
+			const data = (await getAllCollectionItems(
+				"tickets",
+				"data"
+			)) as Promise<ticketDetailsType>[]
 
 			return data
 		}

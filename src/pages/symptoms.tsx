@@ -23,12 +23,14 @@ import { getAllCollectionItems } from "@/lib/tickets"
 // })
 
 export default function Symptoms() {
-
 	const [symptoms, setSymptoms] = useState<symptomDetailsType[]>([])
 
 	useEffect(() => {
 		const getTickets = async () => {
-			const data = await getAllCollectionItems("symptoms", "data") as Promise<symptomDetailsType>[]
+			const data = (await getAllCollectionItems(
+				"symptoms",
+				"data"
+			)) as Promise<symptomDetailsType>[]
 
 			return data
 		}
@@ -39,8 +41,8 @@ export default function Symptoms() {
 	}, [])
 
 	return (
-		<Flex direction="column" h="full" w='full' borderRadius="xl">
-			<Header title="Symptoms" buttonName="New Symptom"/>
+		<Flex direction="column" h="full" w="full" borderRadius="xl">
+			<Header title="Symptoms" buttonName="New Symptom" />
 			<SymptomLabel />
 			{symptoms.map((symptom) => (
 				<Symptom {...symptom} key={symptom.id} />

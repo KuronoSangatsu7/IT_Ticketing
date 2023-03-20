@@ -35,7 +35,7 @@ export default function Header(props: {
 						<Text
 							as="span"
 							fontWeight="hairline"
-							fontSize={{base: 'sm', md:"xl"}}
+							fontSize={{ base: "sm", md: "xl" }}
 						>{` #${props.itemId}`}</Text>
 					) : (
 						<></>

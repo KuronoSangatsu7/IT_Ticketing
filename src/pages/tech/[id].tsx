@@ -7,8 +7,8 @@ export default function Ticket(params: techDetailsType) {
 	const techFields = [
 		{ fieldName: "Name", fieldData: params.full_name },
 		{ fieldName: "Department", fieldData: params.department },
-        { fieldName: "IT Email", fieldData: params.email },
-        { fieldName: "Assigned Tickets", fieldData: params.assigned_tickets },
+		{ fieldName: "IT Email", fieldData: params.email },
+		{ fieldName: "Assigned Tickets", fieldData: params.assigned_tickets },
 	]
 
 	return (
@@ -21,14 +21,14 @@ export default function Ticket(params: techDetailsType) {
 			/>
 			<Flex
 				flexDirection="column"
-				w={{base: '90%', lg: "40%"}}
+				w={{ base: "90%", lg: "40%" }}
 				gap="15px"
 				fontSize="lg"
 				alignSelf="center"
 				paddingY="20px"
 			>
 				{techFields.map((field) => (
-					<Flex flexDirection="column">
+					<Flex flexDirection="column" key={field.fieldName}>
 						<Box
 							as="span"
 							fontWeight="medium"

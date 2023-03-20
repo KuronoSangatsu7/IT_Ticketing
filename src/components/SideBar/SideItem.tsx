@@ -28,9 +28,9 @@ export default function SideItem({
 			alignItems="center"
 			justifyContent="center"
 			flexDirection={{ base: "column" }}
-			borderTopLeftRadius='lg'
-			borderBottomLeftRadius={{md: 'lg'}}
-			borderTopRightRadius={{base: 'lg', md: 'none'}}
+			borderTopLeftRadius="lg"
+			borderBottomLeftRadius={{ md: "lg" }}
+			borderTopRightRadius={{ base: "lg", md: "none" }}
 			gap="2"
 			w="70%"
 			alignSelf="end"

@@ -1,5 +1,5 @@
 export interface symptomDetailsType {
-	name: string,
-    department: string,
-    id: string
+	name: string
+	department: string
+	id: string
 }

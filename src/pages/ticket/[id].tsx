@@ -26,14 +26,14 @@ export default function Ticket(params: ticketDetailsType) {
 			/>
 			<Flex
 				flexDirection="column"
-				w={{base: '90%', lg: "40%"}}
+				w={{ base: "90%", lg: "40%" }}
 				gap="15px"
 				fontSize="lg"
 				alignSelf="center"
 				paddingY="20px"
 			>
 				{ticketFields.map((field) => (
-					<Flex flexDirection="column">
+					<Flex flexDirection="column" key={field.fieldName}>
 						<Box
 							as="span"
 							fontWeight="medium"
