@@ -5,10 +5,11 @@ import {
 	getDocs,
 	doc,
 	getDoc,
-	QueryDocumentSnapshot,
-	DocumentData,
-	DocumentReference,
-} from "firebase/firestore/lite"
+	onSnapshot,
+	type QueryDocumentSnapshot,
+	type DocumentData,
+	type DocumentReference,
+} from "firebase/firestore"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { techDetailsType } from "@/types/techTypes"

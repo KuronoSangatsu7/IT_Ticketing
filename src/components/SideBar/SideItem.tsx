@@ -1,4 +1,4 @@
-import { Link, Box, Icon } from "@chakra-ui/react"
+import { Link, Icon } from "@chakra-ui/react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { IconType } from "react-icons"

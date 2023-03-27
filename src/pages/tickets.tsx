@@ -1,11 +1,13 @@
-import { Flex } from "@chakra-ui/react"
+import { Flex, Spinner, VStack } from "@chakra-ui/react"
 import TicketItem from "@/components/TicketItem/TicketItem"
 import TicketLabel from "@/components/TicketItem/TicketLabel"
 import { ticketDetailsType } from "@/types/ticketTypes"
-import NewItem from "@/components/NewItem"
 import Header from "@/components/Header"
 import { getAllCollectionItems } from "@/lib/tickets"
 import { useEffect, useState } from "react"
+import useFirebaseSub from "@/hooks/use-firebase-sub"
+import LoadingSpinner from "@/components/LoadingSpinner"
+import ErrorMessage from "@/components/ErrorMessage"
 
 // TODO: remove test data
 // const _tickets: ticketDetailsType[] = Object.values({
@@ -40,6 +42,10 @@ import { useEffect, useState } from "react"
 
 export default function Tickets() {
 	const [tickets, setTickets] = useState<ticketDetailsType[]>([])
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState<string | null>(null)
+
+	// const { reload } = useFirebaseSub("tickets")
 
 	useEffect(() => {
 		const getTickets = async () => {
@@ -51,19 +57,36 @@ export default function Tickets() {
 			return data
 		}
 
+		setLoading(true)
 		getTickets().then((data) =>
-			Promise.all(data).then((values) => setTickets(values))
+			Promise.all(data)
+				.then((values) => {
+					setTickets(values)
+					setLoading(false)
+				})
+				.catch((e) => setError(e))
 		)
 	}, [])
+
+	let pageContent = <ErrorMessage />
+
+	loading && !error && (pageContent = <LoadingSpinner />)
+
+	!loading &&
+		!error &&
+		(pageContent = (
+			<>
+				{tickets.map((ticket) => (
+					<TicketItem {...ticket} key={ticket.id} />
+				))}
+			</>
+		))
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
 			<Header title="Tickets" buttonName="New Ticket" />
 			<TicketLabel />
-			{tickets.map((ticket) => (
-				<TicketItem {...ticket} key={ticket.id} />
-			))}
-			<NewItem />
+			{pageContent}
 		</Flex>
 	)
 }
