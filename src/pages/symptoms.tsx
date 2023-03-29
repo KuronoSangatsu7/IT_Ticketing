@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { getAllCollectionItems } from "@/lib/tickets"
 import ErrorMessage from "@/components/ErrorMessage"
 import LoadingSpinner from "@/components/LoadingSpinner"
+import { useRouter } from "next/router"
 
 // TODO: remove test data
 // const symptoms: symptomDetailsType[] = Object.values({
@@ -27,6 +28,8 @@ export default function Symptoms() {
 	const [symptoms, setSymptoms] = useState<symptomDetailsType[]>([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
+
+	const router = useRouter()
 
 	useEffect(() => {
 		const getTickets = async () => {
@@ -49,6 +52,10 @@ export default function Symptoms() {
 		)
 	}, [])
 
+	const handleClick = () => {
+		router.push('/new_symptom')
+	}
+
 	let pageContent = <ErrorMessage />
 
 	loading && !error && (pageContent = <LoadingSpinner />)
@@ -65,7 +72,7 @@ export default function Symptoms() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Symptoms" buttonName="New Symptom" collectionName="symptoms" />
+			<Header title="Symptoms" buttonName="New Symptom" collectionName="symptoms" onClick={handleClick}/>
 			<SymptomLabel />
 			{pageContent}
 		</Flex>

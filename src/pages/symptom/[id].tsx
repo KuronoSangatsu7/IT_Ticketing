@@ -2,12 +2,19 @@ import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { Flex, Box } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 
 export default function Ticket(params: symptomDetailsType) {
 	const symptomFields = [
 		{ fieldName: "Name", fieldData: params.name },
 		{ fieldName: "Department", fieldData: params.department },
 	]
+
+	const router = useRouter()
+
+	const handleClick = () => {
+		router.push(`/symptom/edit/${params.id}`)
+	}
 
 	return (
 		<Flex direction="column" w="full">
@@ -16,6 +23,7 @@ export default function Ticket(params: symptomDetailsType) {
 				itemId={params.id}
 				buttonName="Edit Symptom"
 				buttonIcon="Edit"
+				onClick={handleClick}
 			/>
 			<Flex
 				flexDirection="column"
