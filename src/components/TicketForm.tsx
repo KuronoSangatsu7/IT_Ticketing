@@ -20,13 +20,23 @@ type Inputs = {
 	notes: string
 }
 
-export default function TicketForm() {
+export default function TicketForm(props: {ticket?: ticketDetailsType, buttonName?: string}) {
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors, isSubmitting },
-	} = useForm<Inputs>()
+	} = useForm<Inputs>({
+		defaultValues: {
+			description: props.ticket ? props.ticket.description : "",
+			first_name: props.ticket ? props.ticket.first_name : "",
+			last_name: props.ticket ? props.ticket.last_name : "",
+			employee_id: props.ticket ? props.ticket.employee_id : "",
+			email: props.ticket ? props.ticket.email : "",
+			resolved: props.ticket ? props.ticket.resolved : false,
+			notes: props.ticket ? props.ticket.notes : "",
+		},
+	})
 
 	const onSubmit = async (data: Inputs) => {
 		const myPromise = new Promise((resolve, reject) => {
@@ -68,7 +78,7 @@ export default function TicketForm() {
 			</FormControl>
 
 			<FormControl isInvalid={errors.first_name && true}>
-				<FormItemLabel htmlFor="firstName" text="First Name" />
+				<FormItemLabel htmlFor="first_name" text="First Name" />
 				<Input
 					id="first_name"
 					placeholder="First Name"
@@ -177,7 +187,7 @@ export default function TicketForm() {
 			</FormControl>
 
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
-				Create Ticket
+				{props.buttonName ? props.buttonName : "Create Ticket"}
 			</Button>
 		</Box>
 	)

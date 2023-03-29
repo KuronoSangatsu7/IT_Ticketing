@@ -16,7 +16,7 @@ export default function Header(props: {
 	buttonName: string
 	buttonIcon?: "Edit"
 	collectionName?: string
-	onClick?: (collectionName?: string, id?: string) => void
+	onClick?: () => void
 }) {
 	return (
 		<VStack
@@ -60,7 +60,7 @@ export default function Header(props: {
 							}
 							_hover={{ bg: "black" }}
 							w="156px"
-							onClick={() => props.onClick && props.onClick(props.collectionName, props.itemId)}
+							onClick={() => props.onClick && props.onClick()}
 						>
 							{props.buttonName}
 						</Button>
@@ -86,7 +86,7 @@ export default function Header(props: {
 							position="fixed"
 							right="40px"
 							bottom="40px"
-							onClick={() => props.onClick && props.onClick(props.collectionName, props.itemId)}
+							onClick={() => props.onClick && props.onClick()}
 						/>
 					</>
 				)}

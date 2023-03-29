@@ -1,8 +1,11 @@
 import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
+import { currentTicketAtom } from "@/store/store"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { CheckIcon, TimeIcon } from "@chakra-ui/icons"
 import { Flex, Box, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
+import { useAtom } from "jotai"
+import { useRouter } from "next/router"
 
 export default function Ticket(params: ticketDetailsType) {
 	const ticketFields = [
@@ -16,6 +19,14 @@ export default function Ticket(params: ticketDetailsType) {
 		{ fieldName: "Assigned Tech", fieldData: params.assigned_tech },
 	]
 
+	const [currentTicket, setCurrentTicket] = useAtom(currentTicketAtom)
+	const router = useRouter()
+
+	const handleClick = () => {
+		setCurrentTicket(params)
+		router.push('/edit_ticket')
+	}
+
 	return (
 		<Flex direction="column" w="full">
 			<Header
@@ -23,6 +34,7 @@ export default function Ticket(params: ticketDetailsType) {
 				itemId={params.id}
 				buttonName="Edit Ticket"
 				buttonIcon="Edit"
+				onClick={handleClick}
 			/>
 			<Flex
 				flexDirection="column"
