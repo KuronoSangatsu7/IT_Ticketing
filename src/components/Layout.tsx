@@ -1,5 +1,4 @@
 import { Grid, GridItem } from "@chakra-ui/react"
-import { SearchBar } from "./SearchBar"
 import SideBar from "./SideBar/SideBar"
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -1,4 +1,4 @@
-import { ticketDetailsType } from "@/types/ticketTypes"
+import { type ticketDetailsType } from "@/types/ticketTypes"
 import {
 	Box,
 	FormControl,
@@ -187,7 +187,7 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 			</FormControl>
 
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
-				{props.buttonName ? props.buttonName : "Create Ticket"}
+				{props.buttonName ? props.buttonName : "Add Ticket"}
 			</Button>
 		</Box>
 	)

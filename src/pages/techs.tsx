@@ -8,6 +8,7 @@ import { getAllCollectionItems } from "@/lib/tickets"
 import useFirebaseSub from "@/hooks/use-firebase-sub"
 import ErrorMessage from "@/components/ErrorMessage"
 import LoadingSpinner from "@/components/LoadingSpinner"
+import { useRouter } from "next/router"
 
 // TODO: remove test data
 // const techs: techDetailsType[] = Object.values({
@@ -32,6 +33,8 @@ export default function Techs() {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
+	const router = useRouter()
+
 	// const { reload } = useFirebaseSub("techs")
 
 	useEffect(() => {
@@ -55,6 +58,10 @@ export default function Techs() {
 		)
 	}, [])
 
+	const handleClick = () => {
+		router.push('/new_tech')
+	}
+
 	let pageContent = <ErrorMessage />
 
 	loading && !error && (pageContent = <LoadingSpinner />)
@@ -71,7 +78,7 @@ export default function Techs() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Techs" buttonName="New Tech" collectionName="techs"/>
+			<Header title="Techs" buttonName="New Tech" collectionName="techs" onClick={handleClick} />
 			<TechLabel />
 			{pageContent}
 		</Flex>

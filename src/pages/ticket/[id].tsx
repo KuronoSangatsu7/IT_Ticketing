@@ -1,6 +1,5 @@
 import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
-import { currentTicketAtom } from "@/store/store"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { CheckIcon, TimeIcon } from "@chakra-ui/icons"
 import { Flex, Box, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"

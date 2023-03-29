@@ -2,6 +2,7 @@ import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
 import { techDetailsType } from "@/types/techTypes"
 import { Flex, Box } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 
 export default function Ticket(params: techDetailsType) {
 	const techFields = [
@@ -11,6 +12,12 @@ export default function Ticket(params: techDetailsType) {
 		{ fieldName: "Assigned Tickets", fieldData: params.assigned_tickets },
 	]
 
+	const router = useRouter()
+
+	const handleClick = () => {
+		router.push(`/tech/edit/${params.id}`)
+	}
+
 	return (
 		<Flex direction="column" w="full">
 			<Header
@@ -18,6 +25,7 @@ export default function Ticket(params: techDetailsType) {
 				itemId={params.id}
 				buttonName="Edit Tech"
 				buttonIcon="Edit"
+				onClick={handleClick}
 			/>
 			<Flex
 				flexDirection="column"
