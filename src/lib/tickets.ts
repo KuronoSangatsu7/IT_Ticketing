@@ -6,6 +6,9 @@ import {
 	doc,
 	getDoc,
 	onSnapshot,
+	getCountFromServer,
+	query,
+	where,
 	type QueryDocumentSnapshot,
 	type DocumentData,
 	type DocumentReference,
@@ -59,10 +62,22 @@ export async function getItemData(
 	const db = getFirestore(app)
 	const docRef = doc(db, collectionName, id)
 	const docSnap = await getDoc(docRef)
-	const docData = docSnap.data() as
+	let docData = docSnap.data() as
 		| Omit<ticketDetailsType, "id">
 		| Omit<symptomDetailsType, "id">
 		| Omit<techDetailsType, "id">
+
+	// When fetching techs, query tickets collection to get num of assigned tickets
+	if (collectionName == "techs") {
+		const coll = collection(db, "tickets");
+		let techDetails = docData as Omit<techDetailsType, "id">
+		const q = query(coll, where("assigned_tech", "==", techDetails.full_name));
+		const snapshot = await getCountFromServer(q);
+		const count = snapshot.data().count
+		techDetails = {...techDetails, assigned_tickets: count}
+
+		docData = {...techDetails}
+	}
 
 	return {
 		id: id,
