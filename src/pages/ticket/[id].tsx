@@ -4,7 +4,6 @@ import { currentTicketAtom } from "@/store/store"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { CheckIcon, TimeIcon } from "@chakra-ui/icons"
 import { Flex, Box, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
-import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 
 export default function Ticket(params: ticketDetailsType) {
@@ -19,12 +18,10 @@ export default function Ticket(params: ticketDetailsType) {
 		{ fieldName: "Assigned Tech", fieldData: params.assigned_tech },
 	]
 
-	const [currentTicket, setCurrentTicket] = useAtom(currentTicketAtom)
 	const router = useRouter()
 
 	const handleClick = () => {
-		setCurrentTicket(params)
-		router.push('/edit_ticket')
+		router.push(`/ticket/edit/${params.id}`)
 	}
 
 	return (
