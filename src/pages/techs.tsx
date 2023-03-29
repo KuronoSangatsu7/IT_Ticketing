@@ -71,7 +71,7 @@ export default function Techs() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Techs" buttonName="New Tech" />
+			<Header title="Techs" buttonName="New Tech" collectionName="techs"/>
 			<TechLabel />
 			{pageContent}
 		</Flex>

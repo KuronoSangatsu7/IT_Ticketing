@@ -1,11 +1,11 @@
-import { Flex, Spinner, VStack } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import TicketItem from "@/components/TicketItem/TicketItem"
 import TicketLabel from "@/components/TicketItem/TicketLabel"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import Header from "@/components/Header"
 import { getAllCollectionItems } from "@/lib/tickets"
 import { useEffect, useState } from "react"
-import useFirebaseSub from "@/hooks/use-firebase-sub"
+import { useRouter } from "next/router"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import ErrorMessage from "@/components/ErrorMessage"
 
@@ -45,6 +45,8 @@ export default function Tickets() {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
+	const router = useRouter()
+
 	// const { reload } = useFirebaseSub("tickets")
 
 	useEffect(() => {
@@ -68,6 +70,10 @@ export default function Tickets() {
 		)
 	}, [])
 
+	const handleClick = () => {
+		router.push('/new_ticket')
+	}
+
 	let pageContent = <ErrorMessage />
 
 	loading && !error && (pageContent = <LoadingSpinner />)
@@ -84,7 +90,7 @@ export default function Tickets() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Tickets" buttonName="New Ticket" />
+			<Header title="Tickets" buttonName="New Ticket" collectionName="tickets" onClick={handleClick} />
 			<TicketLabel />
 			{pageContent}
 		</Flex>

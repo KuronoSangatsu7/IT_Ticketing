@@ -65,7 +65,7 @@ export default function Symptoms() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Symptoms" buttonName="New Symptom" />
+			<Header title="Symptoms" buttonName="New Symptom" collectionName="symptoms" />
 			<SymptomLabel />
 			{pageContent}
 		</Flex>

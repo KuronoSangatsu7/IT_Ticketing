@@ -15,6 +15,8 @@ export default function Header(props: {
 	itemId?: string
 	buttonName: string
 	buttonIcon?: "Edit"
+	collectionName?: string
+	onClick?: (collectionName?: string, id?: string) => void
 }) {
 	return (
 		<VStack
@@ -42,46 +44,52 @@ export default function Header(props: {
 					)}
 				</Heading>
 				<Spacer></Spacer>
-				<Button
-					display={{ base: "none", md: "block" }}
-					borderRadius="md"
-					bg="lighterBlue"
-					textColor="whiteAlpha.900"
-					leftIcon={
-						props.hasOwnProperty("buttonIcon") ? (
-							<EditIcon />
-						) : (
-							<AddIcon />
-						)
-					}
-					_hover={{ bg: "black" }}
-					w="156px"
-				>
-					{props.buttonName}
-				</Button>
-				<IconButton
-					aria-label={props.buttonName}
-					icon={
-						props.hasOwnProperty("buttonIcon") ? (
-							<EditIcon
-								color="whiteAlpha.900"
-								h="25px"
-								w="25px"
-							/>
-						) : (
-							<AddIcon color="whiteAlpha.900" />
-						)
-					}
-					borderRadius="full"
-					display={{ base: "block", md: "none" }}
-					bg="lighterBlue"
-					_hover={{ bg: "black" }}
-					h="70px"
-					w="70px"
-					position="fixed"
-					right="40px"
-					bottom="40px"
-				/>
+				{props.buttonName != "None" && (
+					<>
+						<Button
+							display={{ base: "none", md: "block" }}
+							borderRadius="md"
+							bg="lighterBlue"
+							textColor="whiteAlpha.900"
+							leftIcon={
+								props.hasOwnProperty("buttonIcon") ? (
+									<EditIcon />
+								) : (
+									<AddIcon />
+								)
+							}
+							_hover={{ bg: "black" }}
+							w="156px"
+							onClick={() => props.onClick && props.onClick(props.collectionName, props.itemId)}
+						>
+							{props.buttonName}
+						</Button>
+						<IconButton
+							aria-label={props.buttonName}
+							icon={
+								props.hasOwnProperty("buttonIcon") ? (
+									<EditIcon
+										color="whiteAlpha.900"
+										h="25px"
+										w="25px"
+									/>
+								) : (
+									<AddIcon color="whiteAlpha.900" />
+								)
+							}
+							borderRadius="full"
+							display={{ base: "block", md: "none" }}
+							bg="lighterBlue"
+							_hover={{ bg: "black" }}
+							h="70px"
+							w="70px"
+							position="fixed"
+							right="40px"
+							bottom="40px"
+							onClick={() => props.onClick && props.onClick(props.collectionName, props.itemId)}
+						/>
+					</>
+				)}
 			</Flex>
 			<Divider borderColor="blackAlpha.800" />
 		</VStack>
