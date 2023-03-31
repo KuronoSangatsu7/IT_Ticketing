@@ -17,6 +17,7 @@ import {
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { techDetailsType } from "@/types/techTypes"
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const mapItemToId = (item: QueryDocumentSnapshot<DocumentData>) => {
 	return {
@@ -132,6 +133,40 @@ export async function deleteItem(
 	const deleteTransaction = await deleteDoc(doc(db, collectionName, docId))
 
 	return deleteTransaction
+}
+
+export async function signInUser() {
+	const provider = new GoogleAuthProvider();
+	const auth = getAuth()
+	auth.languageCode = 'it';
+
+	return signInWithPopup(auth, provider)
+
+	// .then((result) => {
+	// 	// This gives you a Google Access Token. You can use it to access the Google API.
+	// 	const credential = GoogleAuthProvider.credentialFromResult(result);
+	// 	const token = credential.accessToken;
+	// 	// The signed-in user info.
+	// 	const user = result.user;
+	// 	// IdP data available using getAdditionalUserInfo(result)
+	// 	// ...
+	// }).catch((error) => {
+	// 	// Handle Errors here.
+	// 	const errorCode = error.code;
+	// 	const errorMessage = error.message;
+	// 	// The email of the user's account used.
+	// 	const email = error.customData.email;
+	// 	// The AuthCredential type that was used.
+	// 	const credential = GoogleAuthProvider.credentialFromError(error);
+	// 	// ...
+	// });
+
+}
+
+export async function signOutUser() {
+	const auth = getAuth();
+	
+	return signOut(auth)
 }
 
 // export async function getTicketData(id: string) {

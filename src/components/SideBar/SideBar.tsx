@@ -14,6 +14,7 @@ import {
 } from "react-icons/hi"
 
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2"
+import UserItem from "./UserItem"
 
 const sideItems = [
 	{
@@ -58,6 +59,8 @@ export default function SideBar() {
 			gap="4"
 			alignItems="center"
 			bg="darkBlue"
+			py={{base: 0, md: 5}}
+			px={{base: 2, md: 0}}
 		>
 			<Icon
 				h="50px"
@@ -75,6 +78,7 @@ export default function SideBar() {
 					<SideItem {...sideItem} key={sideItem.pagePath} />
 				))}
 			</Stack>
+			<UserItem />
 		</Flex>
 	)
 }

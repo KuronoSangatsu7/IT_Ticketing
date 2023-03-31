@@ -79,7 +79,7 @@ export default function SymptomForm(props: {
 				{props.buttonName ? props.buttonName : "Add Symptom"}
 			</Button>
 
-			<Button display={props.symptom ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Remove Symptom</Button>
+			<Button display={props.symptom ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Remove Symptom</Button>
 		</Box>
 	)
 }

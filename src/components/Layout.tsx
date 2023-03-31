@@ -1,7 +1,15 @@
+import { currentUserAtom } from "@/store/store"
 import { Grid, GridItem } from "@chakra-ui/react"
+import { useAtom } from "jotai"
+import { useRouter } from "next/router"
 import SideBar from "./SideBar/SideBar"
+import SignInForm from "./SignInButton"
+import SignInMessage from "./SignInMessage"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+	const [currentUser] = useAtom(currentUserAtom)
+	const router = useRouter()
+
 	return (
 		<Grid
 			templateAreas={{
@@ -34,7 +42,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				justifyContent="center"
 				overflow="scroll"
 			>
-				{children}
+				{currentUser ? (
+					children
+				) : router.pathname == "/" ? (
+					children
+				) : (
+					<SignInMessage />
+				)}
 			</GridItem>
 			<GridItem area="nav">
 				<SideBar />

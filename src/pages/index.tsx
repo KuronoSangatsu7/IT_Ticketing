@@ -1,6 +1,12 @@
+import SignInButton from "@/components/SignInButton"
+import { currentUserAtom } from "@/store/store"
+import { Box, Flex } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import Head from "next/head"
 
 export default function Home() {
+	const [currentUser] = useAtom(currentUserAtom)
+
 	return (
 		<>
 			<Head>
@@ -15,7 +21,18 @@ export default function Home() {
 				/>
 			</Head>
 
-			<main>Home</main>
+			<Flex
+				as="main"
+				alignItems="center"
+				flexDirection="column"
+				h="80%"
+				w="full"
+			>
+				<Box as="span" fontSize="4xl" p="200px">
+					Welcome to IT Ticketing!
+				</Box>
+				{!currentUser && <SignInButton />}
+			</Flex>
 		</>
 	)
 }

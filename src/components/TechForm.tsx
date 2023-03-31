@@ -106,7 +106,7 @@ export default function TechForm(props: {
 				{props.buttonName ? props.buttonName : "Add Tech"}
 			</Button>
 
-			<Button display={props.tech ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Remove Tech</Button>
+			<Button display={props.tech ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Remove Tech</Button>
 		</Box>
 	)
 }

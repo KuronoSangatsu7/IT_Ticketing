@@ -194,7 +194,7 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 				{props.buttonName ? props.buttonName : "Add Ticket"}
 			</Button>
 
-			<Button display={props.ticket ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Delete Ticket</Button>
+			<Button display={props.ticket ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Delete Ticket</Button>
 		</Box>
 	)
 }
