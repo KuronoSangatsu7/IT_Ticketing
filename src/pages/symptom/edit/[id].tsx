@@ -10,7 +10,7 @@ export default function EditTicket(props: symptomDetailsType) {
 	return (
 		<Flex direction="column" w="full">
 			<Header title="Edit Symptom" buttonName="None" itemId={props.id} />
-			<SymptomForm buttonName="Submit Changes" symptom={props} />
+			<SymptomForm buttonName="Save Changes" symptom={props} />
 		</Flex>
 	)
 }

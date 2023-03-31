@@ -1,4 +1,6 @@
+import { updateItem } from "@/lib/tickets"
 import { type symptomDetailsType } from "@/types/symptomTypes"
+import { ticketDetailsType } from "@/types/ticketTypes"
 import {
 	Box,
 	FormControl,
@@ -35,6 +37,12 @@ export default function SymptomForm(props: {
 			}, 3000)
 		})
 		return myPromise
+
+		// return updateItem("symptoms", data as symptomDetailsType)
+	}
+
+	const handleDelete = () => {
+		console.log("symptom deleted")
 	}
 
 	return (
@@ -70,6 +78,8 @@ export default function SymptomForm(props: {
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
 				{props.buttonName ? props.buttonName : "Add Symptom"}
 			</Button>
+
+			<Button display={props.symptom ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Remove Symptom</Button>
 		</Box>
 	)
 }

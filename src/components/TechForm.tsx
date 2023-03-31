@@ -39,6 +39,10 @@ export default function TechForm(props: {
 		return myPromise
 	}
 
+	const handleDelete = () => {
+		console.log("tech deleted")
+	}
+
 	return (
 		<Box
 			as="form"
@@ -101,6 +105,8 @@ export default function TechForm(props: {
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
 				{props.buttonName ? props.buttonName : "Add Tech"}
 			</Button>
+
+			<Button display={props.tech ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Remove Tech</Button>
 		</Box>
 	)
 }

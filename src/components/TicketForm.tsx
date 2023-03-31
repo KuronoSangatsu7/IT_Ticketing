@@ -47,6 +47,10 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 		return myPromise
 	}
 
+	const handleDelete = () => {
+		console.log("ticket deleted")
+	}
+
 	return (
 		<Box
 			as="form"
@@ -189,6 +193,8 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
 				{props.buttonName ? props.buttonName : "Add Ticket"}
 			</Button>
+
+			<Button display={props.ticket ? 'block' : 'none'} colorScheme='red' onClick={() => handleDelete()}>Delete Ticket</Button>
 		</Box>
 	)
 }

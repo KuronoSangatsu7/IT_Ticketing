@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react"
+import { Button, Flex } from "@chakra-ui/react"
 import Header from "@/components/Header"
 import TicketForm from "@/components/TicketForm"
 import { getAllCollectionItems } from "@/lib/tickets"
@@ -10,7 +10,7 @@ export default function EditTicket(props: ticketDetailsType) {
 	return (
 		<Flex direction="column" w="full">
 			<Header title="Edit Ticket" buttonName="None" itemId={props.id} />
-			<TicketForm buttonName="Submit Changes" ticket={props} />
+			<TicketForm buttonName="Save Changes" ticket={props} />
 		</Flex>
 	)
 }

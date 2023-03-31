@@ -5,13 +5,14 @@ import {
 	getDocs,
 	doc,
 	getDoc,
-	onSnapshot,
 	getCountFromServer,
 	query,
 	where,
 	type QueryDocumentSnapshot,
 	type DocumentData,
-	type DocumentReference,
+	setDoc,
+	addDoc,
+	deleteDoc,
 } from "firebase/firestore"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { symptomDetailsType } from "@/types/symptomTypes"
@@ -69,20 +70,68 @@ export async function getItemData(
 
 	// When fetching techs, query tickets collection to get num of assigned tickets
 	if (collectionName == "techs") {
-		const coll = collection(db, "tickets");
+		const coll = collection(db, "tickets")
 		let techDetails = docData as Omit<techDetailsType, "id">
-		const q = query(coll, where("assigned_tech", "==", techDetails.full_name));
-		const snapshot = await getCountFromServer(q);
+		const q = query(
+			coll,
+			where("assigned_tech", "==", techDetails.full_name)
+		)
+		const snapshot = await getCountFromServer(q)
 		const count = snapshot.data().count
-		techDetails = {...techDetails, assigned_tickets: count}
+		techDetails = { ...techDetails, assigned_tickets: count }
 
-		docData = {...techDetails}
+		docData = { ...techDetails }
 	}
 
 	return {
 		id: id,
 		...docData,
 	}
+}
+
+export async function updateItem(
+	collectionName: "tickets" | "symptoms" | "techs" | "departments",
+	newValues: ticketDetailsType | symptomDetailsType | techDetailsType
+) {
+	const db = getFirestore(app)
+	const docId = newValues.id
+
+	const docValues = Object.fromEntries(
+		Object.entries(newValues).filter(([key]) => key != "id")
+	)
+
+	const updateTransaction = await setDoc(
+		doc(db, collectionName, docId),
+		docValues
+	)
+
+	return updateTransaction
+}
+
+export async function addItem(
+	collectionName: "tickets" | "symptoms" | "techs" | "departments",
+	newValues: ticketDetailsType | symptomDetailsType | techDetailsType
+) {
+	const db = getFirestore(app)
+
+	const docValues = Object.fromEntries(
+		Object.entries(newValues).filter(([key]) => key != "id")
+	)
+
+	const docRef = await addDoc(collection(db, collectionName), docValues)
+
+	return docRef
+}
+
+export async function deleteItem(
+	collectionName: "tickets" | "symptoms" | "techs" | "departments",
+	docId: string
+) {
+	const db = getFirestore(app)
+
+	const deleteTransaction = await deleteDoc(doc(db, collectionName, docId))
+
+	return deleteTransaction
 }
 
 // export async function getTicketData(id: string) {

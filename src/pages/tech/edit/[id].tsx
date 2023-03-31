@@ -10,7 +10,7 @@ export default function EditTicket(props: techDetailsType) {
 	return (
 		<Flex direction="column" w="full">
 			<Header title="Edit Tech" buttonName="None" itemId={props.id} />
-			<TechForm buttonName="Submit Changes" tech={props} />
+			<TechForm buttonName="Save Changes" tech={props} />
 		</Flex>
 	)
 }
