@@ -1,14 +1,12 @@
 import Tech from "@/components/TechItem/TechItem"
-import { techDetailsType } from "@/types/techTypes"
 import { Flex } from "@chakra-ui/react"
 import Header from "@/components/Header"
 import TechLabel from "@/components/TechItem/TechLabel"
-import { useEffect, useState } from "react"
-import { getAllCollectionItems } from "@/lib/tickets"
-import useFirebaseSub from "@/hooks/use-firebase-sub"
-import ErrorMessage from "@/components/ErrorMessage"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { useRouter } from "next/router"
+import { useAtom } from "jotai"
+import { techsAtom } from "@/store/store"
+import useFirebaseSub from "@/hooks/use-firebase-sub"
 
 // TODO: remove test data
 // const techs: techDetailsType[] = Object.values({
@@ -29,45 +27,20 @@ import { useRouter } from "next/router"
 // })
 
 export default function Techs() {
-	const [techs, setTechs] = useState<techDetailsType[]>([])
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	// Setup a snapshot listener that will add techs to global state
+	useFirebaseSub("techs")
+
+	const [techs] = useAtom(techsAtom)
 
 	const router = useRouter()
 
-	// const { reload } = useFirebaseSub("techs")
-
-	useEffect(() => {
-		const getTickets = async () => {
-			const data = (await getAllCollectionItems(
-				"techs",
-				"data"
-			)) as Promise<techDetailsType>[]
-
-			return data
-		}
-
-		setLoading(true)
-		getTickets().then((data) =>
-			Promise.all(data)
-				.then((values) => {
-					setTechs(values)
-					setLoading(false)
-				})
-				.catch((e) => setError(e))
-		)
-	}, [])
-
 	const handleClick = () => {
-		router.push('/new_tech')
+		router.push("/new_tech")
 	}
 
-	let pageContent = <ErrorMessage />
+	let pageContent = <LoadingSpinner />
 
-	loading && !error && (pageContent = <LoadingSpinner />)
-
-	!loading &&
-		!error &&
+	techs &&
 		(pageContent = (
 			<>
 				{techs.map((tech) => (
@@ -78,7 +51,12 @@ export default function Techs() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Techs" buttonName="New Tech" collectionName="techs" onClick={handleClick} />
+			<Header
+				title="Techs"
+				buttonName="New Tech"
+				collectionName="techs"
+				onClick={handleClick}
+			/>
 			<TechLabel />
 			{pageContent}
 		</Flex>

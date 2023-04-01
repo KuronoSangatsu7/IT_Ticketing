@@ -1,13 +1,12 @@
 import { Flex } from "@chakra-ui/react"
 import TicketItem from "@/components/TicketItem/TicketItem"
 import TicketLabel from "@/components/TicketItem/TicketLabel"
-import { ticketDetailsType } from "@/types/ticketTypes"
 import Header from "@/components/Header"
-import { getAllCollectionItems } from "@/lib/tickets"
-import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import LoadingSpinner from "@/components/LoadingSpinner"
-import ErrorMessage from "@/components/ErrorMessage"
+import useFirebaseSub from "@/hooks/use-firebase-sub"
+import { useAtom } from "jotai"
+import { ticketsAtom } from "@/store/store"
 
 // TODO: remove test data
 // const _tickets: ticketDetailsType[] = Object.values({
@@ -41,45 +40,19 @@ import ErrorMessage from "@/components/ErrorMessage"
 // })
 
 export default function Tickets() {
-	const [tickets, setTickets] = useState<ticketDetailsType[]>([])
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	// Setup a snapshot listener that will add tickets to global state
+	useFirebaseSub("tickets")
 
 	const router = useRouter()
-
-	// const { reload } = useFirebaseSub("tickets")
-
-	useEffect(() => {
-		const getTickets = async () => {
-			const data = (await getAllCollectionItems(
-				"tickets",
-				"data"
-			)) as Promise<ticketDetailsType>[]
-
-			return data
-		}
-
-		setLoading(true)
-		getTickets().then((data) =>
-			Promise.all(data)
-				.then((values) => {
-					setTickets(values)
-					setLoading(false)
-				})
-				.catch((e) => setError(e))
-		)
-	}, [])
+	const [tickets] = useAtom(ticketsAtom)
 
 	const handleClick = () => {
-		router.push('/new_ticket')
+		router.push("/new_ticket")
 	}
 
-	let pageContent = <ErrorMessage />
+	let pageContent = <LoadingSpinner />
 
-	loading && !error && (pageContent = <LoadingSpinner />)
-
-	!loading &&
-		!error &&
+	tickets &&
 		(pageContent = (
 			<>
 				{tickets.map((ticket) => (
@@ -90,7 +63,12 @@ export default function Tickets() {
 
 	return (
 		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header title="Tickets" buttonName="New Ticket" collectionName="tickets" onClick={handleClick} />
+			<Header
+				title="Tickets"
+				buttonName="New Ticket"
+				collectionName="tickets"
+				onClick={handleClick}
+			/>
 			<TicketLabel />
 			{pageContent}
 		</Flex>

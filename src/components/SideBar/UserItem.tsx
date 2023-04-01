@@ -11,33 +11,18 @@ import {
 } from "@chakra-ui/react"
 import NextLink from "next/link"
 import { signInUser, signOutUser } from "@/lib/tickets"
-import { GoogleAuthProvider } from "firebase/auth"
+import useAuthSub from "@/hooks/use-auth-sub"
 
 export default function UserItem() {
-	const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
+	const [currentUser] = useAtom(currentUserAtom)
+	useAuthSub()
 
 	const handleSignIn = () => {
 		signInUser()
-			.then((result) => {
-				const user = result.user
-				// IdP data available using getAdditionalUserInfo(result)
-				setCurrentUser(user)
-			})
-			.catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code
-				const errorMessage = error.message
-				// The email of the user's account used.
-				const email = error.customData.email
-			})
 	}
 
 	const handleSignOut = () => {
 		signOutUser()
-			.then(() => {
-				setCurrentUser(undefined)
-			})
-			.catch((error) => {})
 	}
 
 	return (
@@ -61,7 +46,7 @@ export default function UserItem() {
 				)}
 			</MenuButton>
 			<MenuList>
-				{currentUser != undefined ? (
+				{currentUser ? (
 					<>
 						<MenuGroup title="Manage">
 							<MenuItem>
