@@ -27,9 +27,6 @@ import useFirebaseSub from "@/hooks/use-firebase-sub"
 // })
 
 export default function Techs() {
-	// Setup a snapshot listener that will add techs to global state
-	useFirebaseSub("techs")
-
 	const [techs] = useAtom(techsAtom)
 
 	const router = useRouter()

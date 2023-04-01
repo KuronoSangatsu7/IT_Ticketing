@@ -4,4 +4,5 @@ export interface techDetailsType {
 	assigned_tickets: number
 	email: string
 	id: string
+	owner_id: string
 }

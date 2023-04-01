@@ -3,7 +3,6 @@ import { Grid, GridItem } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import SideBar from "./SideBar/SideBar"
-import SignInForm from "./SignInButton"
 import SignInMessage from "./SignInMessage"
 
 export default function Layout({ children }: { children: React.ReactNode }) {

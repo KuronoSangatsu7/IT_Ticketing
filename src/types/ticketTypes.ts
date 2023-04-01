@@ -10,4 +10,6 @@ export interface ticketDetailsType {
 	resolved: boolean
 	symptom: string
 	id: string
+	owner_id: string
 }
+

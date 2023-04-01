@@ -3,14 +3,16 @@ import { getFirestore, onSnapshot, query, collection } from "firebase/firestore"
 import app from "@/lib/firebaseInit"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
-import { symptomsAtom, techsAtom, ticketsAtom } from "@/store/store"
+import { departmentsAtom, symptomsAtom, techsAtom, ticketsAtom } from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { techDetailsType } from "@/types/techTypes"
+import { departmentDetailsType } from "@/types/departmentTypes"
 
-const useFirebaseSub = (collectionName: string) => {
+const useFirebaseSub = (collectionName: "tickets" | "techs" | "symptoms" | "departments") => {
 	const [, setTickets] = useAtom(ticketsAtom)
 	const [, setSymptoms] = useAtom(symptomsAtom)
 	const [, setTechs] = useAtom(techsAtom)
+	const [, setDepartments] = useAtom(departmentsAtom)
 
 	const db = getFirestore(app)
 	const q = query(collection(db, collectionName))
@@ -18,7 +20,10 @@ const useFirebaseSub = (collectionName: string) => {
 	useEffect(() => {
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const items: Array<
-				ticketDetailsType | techDetailsType | symptomDetailsType
+				| ticketDetailsType
+				| techDetailsType
+				| symptomDetailsType
+				| departmentDetailsType
 			> = []
 
 			if (collectionName == "tickets") {
@@ -48,6 +53,15 @@ const useFirebaseSub = (collectionName: string) => {
 				})
 
 				setTechs(items as techDetailsType[])
+			} else if (collectionName == "departments") {
+				querySnapshot.forEach((doc) => {
+					items.push({
+						...doc.data(),
+						id: doc.id,
+					} as departmentDetailsType)
+				})
+
+				setDepartments(items as departmentDetailsType[])
 			}
 		})
 

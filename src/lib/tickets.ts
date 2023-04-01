@@ -17,7 +17,12 @@ import {
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { techDetailsType } from "@/types/techTypes"
-import { getAuth, GoogleAuthProvider, setPersistence, signInWithPopup, signOut } from "firebase/auth";
+import {
+	getAuth,
+	GoogleAuthProvider,
+	signInWithPopup,
+	signOut,
+} from "firebase/auth"
 
 const mapItemToId = (item: QueryDocumentSnapshot<DocumentData>) => {
 	return {
@@ -111,7 +116,10 @@ export async function updateItem(
 
 export async function addItem(
 	collectionName: "tickets" | "symptoms" | "techs" | "departments",
-	newValues: ticketDetailsType | symptomDetailsType | techDetailsType
+	newValues:
+		| Omit<ticketDetailsType, "id">
+		| Omit<symptomDetailsType, "id">
+		| Omit<techDetailsType, "id">
 ) {
 	const db = getFirestore(app)
 
@@ -119,9 +127,9 @@ export async function addItem(
 		Object.entries(newValues).filter(([key]) => key != "id")
 	)
 
-	const docRef = await addDoc(collection(db, collectionName), docValues)
-
-	return docRef
+	return addDoc(collection(db, collectionName), docValues).then(() => {
+		return
+	})
 }
 
 export async function deleteItem(
@@ -136,9 +144,9 @@ export async function deleteItem(
 }
 
 export async function signInUser() {
-	const provider = new GoogleAuthProvider();
+	const provider = new GoogleAuthProvider()
 	const auth = getAuth(app)
-	auth.languageCode = 'it';
+	auth.languageCode = "it"
 
 	return signInWithPopup(auth, provider)
 
@@ -160,12 +168,11 @@ export async function signInUser() {
 	// 	const credential = GoogleAuthProvider.credentialFromError(error);
 	// 	// ...
 	// });
-
 }
 
 export async function signOutUser() {
-	const auth = getAuth();
-	
+	const auth = getAuth()
+
 	return signOut(auth)
 }
 

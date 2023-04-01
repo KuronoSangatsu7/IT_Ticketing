@@ -24,8 +24,6 @@ import { symptomsAtom } from "@/store/store"
 // })
 
 export default function Symptoms() {
-	// Setup a snapshot listener that will add techs to global state
-	useFirebaseSub("symptoms")
 
 	const [symptoms] = useAtom(symptomsAtom)
 

@@ -3,6 +3,7 @@ import type { AppProps } from "next/app"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import Layout from "@/components/Layout"
 import { Cairo, Open_Sans } from "next/font/google"
+import useFirebaseSub from "@/hooks/use-firebase-sub"
 
 const cairo = Cairo({ subsets: ["latin"] })
 const open_sans = Open_Sans({ subsets: ["latin"] })
@@ -25,6 +26,17 @@ const theme = extendTheme({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+	// Setup a snapshot listener that will add tickets to global state
+	useFirebaseSub("tickets")
+
+	// Setup a snapshot listener that will add techs to global state
+	useFirebaseSub("techs")
+
+	// Setup a snapshot listener that will add techs to global state
+	useFirebaseSub("symptoms")
+
+	useFirebaseSub("departments")
+
 	return (
 		<ChakraProvider theme={theme}>
 			<Layout>

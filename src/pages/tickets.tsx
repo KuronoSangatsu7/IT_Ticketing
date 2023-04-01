@@ -40,8 +40,6 @@ import { ticketsAtom } from "@/store/store"
 // })
 
 export default function Tickets() {
-	// Setup a snapshot listener that will add tickets to global state
-	useFirebaseSub("tickets")
 
 	const router = useRouter()
 	const [tickets] = useAtom(ticketsAtom)

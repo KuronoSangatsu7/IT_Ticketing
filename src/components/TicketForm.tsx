@@ -1,3 +1,10 @@
+import { deleteItem, updateItem } from "@/lib/tickets"
+import {
+	currentUserAtom,
+	departmentsAtom,
+	symptomsAtom,
+	techsAtom,
+} from "@/store/store"
 import { type ticketDetailsType } from "@/types/ticketTypes"
 import {
 	Box,
@@ -6,21 +13,20 @@ import {
 	Button,
 	Input,
 	Checkbox,
+	Select,
 } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
-type Inputs = {
-	description: string
-	first_name: string
-	last_name: string
-	employee_id: string
-	email: string
-	resolved: boolean
-	notes: string
-}
+type Inputs = Omit<ticketDetailsType, "id" | "owner_id">
 
-export default function TicketForm(props: {ticket?: ticketDetailsType, buttonName?: string}) {
+export default function TicketForm(props: {
+	ticket?: ticketDetailsType
+	buttonName?: string
+	onSubmit: (data: Inputs) => Promise<void>
+	onDelete?: () => Promise<void>
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -33,22 +39,39 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 			last_name: props.ticket ? props.ticket.last_name : "",
 			employee_id: props.ticket ? props.ticket.employee_id : "",
 			email: props.ticket ? props.ticket.email : "",
+			symptom: props.ticket ? props.ticket.symptom : undefined,
+			department: props.ticket ? props.ticket.department : undefined,
+			assigned_tech: props.ticket
+				? props.ticket.assigned_tech
+				: undefined,
 			resolved: props.ticket ? props.ticket.resolved : false,
 			notes: props.ticket ? props.ticket.notes : "",
 		},
 	})
 
+	const [symptoms] = useAtom(symptomsAtom)
+	const [techs] = useAtom(techsAtom)
+	const [departments] = useAtom(departmentsAtom)
+
 	const onSubmit = async (data: Inputs) => {
-		const myPromise = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(console.log(data))
-			}, 3000)
-		})
-		return myPromise
+		// Either add or update
+		props
+			.onSubmit(data)
+			.then(() => {
+				alert("Item updated successfuly")
+			})
+			.catch((e) => alert(`Operation Failed. Please try again`))
 	}
 
 	const handleDelete = () => {
-		console.log("ticket deleted")
+		// ALways delete
+		props.onDelete &&
+			props
+				.onDelete()
+				.then(() => {
+					alert("Item deleted successfuly")
+				})
+				.catch((e) => alert("Failed to delete ticket. Please try again"))
 	}
 
 	return (
@@ -155,6 +178,96 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 				</FormErrorMessage>
 			</FormControl>
 
+			<FormControl isInvalid={errors.symptom && true}>
+				<FormItemLabel htmlFor="symptom" text="Symptom" />
+				<Controller
+					control={control}
+					name="symptom"
+					key="symptom"
+					defaultValue=""
+					rules={{ required: "This is required." }}
+					render={({ field: { onChange, value, ref } }) => (
+						<Select
+							onChange={onChange}
+							ref={ref}
+							value={value}
+							placeholder="Choose a symptom"
+						>
+							{symptoms?.map((symptom) => (
+								<option key={symptom.id} value={symptom.name}>
+									{symptom.name}
+								</option>
+							))}
+						</Select>
+					)}
+				/>
+
+				<FormErrorMessage>
+					{errors.symptom && errors.symptom.message}
+				</FormErrorMessage>
+			</FormControl>
+
+			<FormControl isInvalid={errors.assigned_tech && true}>
+				<FormItemLabel htmlFor="assigned_tech" text="Assigned Tech" />
+				<Controller
+					control={control}
+					name="assigned_tech"
+					key="assigned_tech"
+					defaultValue=""
+					rules={{ required: "This is required." }}
+					render={({ field: { onChange, value, ref } }) => (
+						<Select
+							onChange={onChange}
+							ref={ref}
+							value={value}
+							placeholder="Choose a tech"
+						>
+							{techs?.map((tech) => (
+								<option key={tech.id} value={tech.full_name}>
+									{tech.full_name}
+								</option>
+							))}
+						</Select>
+					)}
+				/>
+
+				<FormErrorMessage>
+					{errors.assigned_tech && errors.assigned_tech.message}
+				</FormErrorMessage>
+			</FormControl>
+
+			<FormControl isInvalid={errors.department && true}>
+				<FormItemLabel htmlFor="department" text="Department" />
+				<Controller
+					control={control}
+					name="department"
+					key="department"
+					defaultValue=""
+					rules={{ required: "This is required." }}
+					render={({ field: { onChange, value, ref } }) => (
+						<Select
+							onChange={onChange}
+							ref={ref}
+							value={value}
+							placeholder="Choose a department"
+						>
+							{departments?.map((department) => (
+								<option
+									key={department.id}
+									value={department.name}
+								>
+									{department.name}
+								</option>
+							))}
+						</Select>
+					)}
+				/>
+
+				<FormErrorMessage>
+					{errors.assigned_tech && errors.assigned_tech.message}
+				</FormErrorMessage>
+			</FormControl>
+
 			<FormControl isInvalid={errors.resolved && true}>
 				<FormItemLabel htmlFor="resolved" text="Resolved ?" />
 				<Controller
@@ -194,7 +307,13 @@ export default function TicketForm(props: {ticket?: ticketDetailsType, buttonNam
 				{props.buttonName ? props.buttonName : "Add Ticket"}
 			</Button>
 
-			<Button display={props.ticket ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Delete Ticket</Button>
+			<Button
+				display={props.ticket ? "block" : "none"}
+				colorScheme="red"
+				onClick={handleDelete}
+			>
+				Delete Ticket
+			</Button>
 		</Box>
 	)
 }
