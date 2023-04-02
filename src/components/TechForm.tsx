@@ -1,3 +1,4 @@
+import { departmentsAtom } from "@/store/store"
 import { type techDetailsType } from "@/types/techTypes"
 import {
 	Box,
@@ -5,18 +6,23 @@ import {
 	FormErrorMessage,
 	Button,
 	Input,
+	Select,
 } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
 type Inputs = {
 	full_name: string
 	email: string
+	department: string
 }
 
 export default function TechForm(props: {
 	tech?: techDetailsType
 	buttonName?: string
+	onSubmit: (data: Inputs) => Promise<void>
+	onDelete?: () => Promise<void>
 }) {
 	const {
 		register,
@@ -27,20 +33,31 @@ export default function TechForm(props: {
 		defaultValues: {
 			full_name: props.tech ? props.tech.full_name : "",
 			email: props.tech ? props.tech.email : "",
+			department: props.tech ? props.tech.department : "",
 		},
 	})
 
+	const [departments] = useAtom(departmentsAtom)
+
 	const onSubmit = async (data: Inputs) => {
-		const myPromise = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(console.log(data))
-			}, 3000)
-		})
-		return myPromise
+		props
+			.onSubmit(data)
+			.then(() => {
+				alert("Item updated successfuly")
+			})
+			.catch((e) => alert(`Operation Failed. Please try again`))
 	}
 
 	const handleDelete = () => {
-		console.log("tech deleted")
+		props.onDelete &&
+			props
+				.onDelete()
+				.then(() => {
+					alert("Item deleted successfuly")
+				})
+				.catch((e) =>
+					alert("Failed to delete ticket. Please try again")
+				)
 	}
 
 	return (
@@ -92,6 +109,38 @@ export default function TechForm(props: {
 				</FormErrorMessage>
 			</FormControl>
 
+			<FormControl isInvalid={errors.department && true}>
+				<FormItemLabel htmlFor="department" text="Department" />
+				<Controller
+					control={control}
+					name="department"
+					key="department"
+					defaultValue=""
+					rules={{ required: "This is required." }}
+					render={({ field: { onChange, value, ref } }) => (
+						<Select
+							onChange={onChange}
+							ref={ref}
+							value={value}
+							placeholder="Choose a department"
+						>
+							{departments?.map((department) => (
+								<option
+									key={department.id}
+									value={department.name}
+								>
+									{department.name}
+								</option>
+							))}
+						</Select>
+					)}
+				/>
+
+				<FormErrorMessage>
+					{errors.department && errors.department.message}
+				</FormErrorMessage>
+			</FormControl>
+
 			<FormControl>
 				<FormItemLabel
 					htmlFor="assigned_tickets"
@@ -106,7 +155,13 @@ export default function TechForm(props: {
 				{props.buttonName ? props.buttonName : "Add Tech"}
 			</Button>
 
-			<Button display={props.tech ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Remove Tech</Button>
+			<Button
+				display={props.tech ? "block" : "none"}
+				colorScheme="red"
+				onClick={handleDelete}
+			>
+				Remove Tech
+			</Button>
 		</Box>
 	)
 }

@@ -1,16 +1,34 @@
 import { Flex } from "@chakra-ui/react"
 import Header from "@/components/Header"
-import { getAllCollectionItems } from "@/lib/tickets"
+import { deleteItem, getAllCollectionItems, updateItem } from "@/lib/tickets"
 import { getItemData } from "@/lib/tickets"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import SymptomForm from "@/components/SymptomForm"
+import { useAtom } from "jotai"
+import { currentUserAtom } from "@/store/store"
 
-export default function EditTicket(props: symptomDetailsType) {
+export default function EditSymptom(props: symptomDetailsType) {
+
+	const [currentUser] = useAtom(currentUserAtom)
+
+	const handleSubmit = (data: Omit<symptomDetailsType, "id" | "owner_id">) => {
+		const updateQuery: symptomDetailsType = {
+			...data,
+			id: props.id,
+			owner_id: currentUser ? currentUser.uid : "no one",
+		}
+		
+		return updateItem("symptoms", updateQuery)
+	}
+
+	const handleDelete = async() => {
+		return deleteItem("symptoms", props.id)
+	}
 
 	return (
 		<Flex direction="column" w="full">
 			<Header title="Edit Symptom" buttonName="None" itemId={props.id} />
-			<SymptomForm buttonName="Save Changes" symptom={props} />
+			<SymptomForm buttonName="Save Changes" symptom={props} onSubmit={handleSubmit} onDelete={handleDelete} />
 		</Flex>
 	)
 }

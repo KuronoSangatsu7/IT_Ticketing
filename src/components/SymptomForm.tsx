@@ -1,23 +1,27 @@
-import { updateItem } from "@/lib/tickets"
+import { departmentsAtom } from "@/store/store"
 import { type symptomDetailsType } from "@/types/symptomTypes"
-import { ticketDetailsType } from "@/types/ticketTypes"
 import {
 	Box,
 	FormControl,
 	FormErrorMessage,
 	Button,
 	Input,
+	Select,
 } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
 type Inputs = {
 	name: string
+	department: string
 }
 
 export default function SymptomForm(props: {
 	symptom?: symptomDetailsType
 	buttonName?: string
+	onSubmit: (data: Inputs) => Promise<void>
+	onDelete?: () => Promise<void>
 }) {
 	const {
 		register,
@@ -27,22 +31,31 @@ export default function SymptomForm(props: {
 	} = useForm<Inputs>({
 		defaultValues: {
 			name: props.symptom ? props.symptom.name : "",
+			department: props.symptom ? props.symptom.department : "",
 		},
 	})
 
-	const onSubmit = async (data: Inputs) => {
-		const myPromise = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(console.log(data))
-			}, 3000)
-		})
-		return myPromise
+	const [departments] = useAtom(departmentsAtom)
 
-		// return updateItem("symptoms", data as symptomDetailsType)
+	const onSubmit = async (data: Inputs) => {
+		props
+			.onSubmit(data)
+			.then(() => {
+				alert("Item updated successfuly")
+			})
+			.catch((e) => alert(`Operation Failed. Please try again`))
 	}
 
 	const handleDelete = () => {
-		console.log("symptom deleted")
+		props.onDelete &&
+			props
+				.onDelete()
+				.then(() => {
+					alert("Item deleted successfuly")
+				})
+				.catch((e) =>
+					alert("Failed to delete ticket. Please try again")
+				)
 	}
 
 	return (
@@ -75,11 +88,49 @@ export default function SymptomForm(props: {
 				</FormErrorMessage>
 			</FormControl>
 
+			<FormControl isInvalid={errors.department && true}>
+				<FormItemLabel htmlFor="department" text="Department" />
+				<Controller
+					control={control}
+					name="department"
+					key="department"
+					defaultValue=""
+					rules={{ required: "This is required." }}
+					render={({ field: { onChange, value, ref } }) => (
+						<Select
+							onChange={onChange}
+							ref={ref}
+							value={value}
+							placeholder="Choose a department"
+						>
+							{departments?.map((department) => (
+								<option
+									key={department.id}
+									value={department.name}
+								>
+									{department.name}
+								</option>
+							))}
+						</Select>
+					)}
+				/>
+
+				<FormErrorMessage>
+					{errors.department && errors.department.message}
+				</FormErrorMessage>
+			</FormControl>
+
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
 				{props.buttonName ? props.buttonName : "Add Symptom"}
 			</Button>
 
-			<Button display={props.symptom ? 'block' : 'none'} colorScheme='red' onClick={handleDelete}>Remove Symptom</Button>
+			<Button
+				display={props.symptom ? "block" : "none"}
+				colorScheme="red"
+				onClick={handleDelete}
+			>
+				Remove Symptom
+			</Button>
 		</Box>
 	)
 }

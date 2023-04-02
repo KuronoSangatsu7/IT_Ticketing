@@ -4,7 +4,7 @@ import { techDetailsType } from "@/types/techTypes"
 import { Flex, Box } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
-export default function Ticket(params: techDetailsType) {
+export default function Tech(params: techDetailsType) {
 	const techFields = [
 		{ fieldName: "Name", fieldData: params.full_name },
 		{ fieldName: "Department", fieldData: params.department },

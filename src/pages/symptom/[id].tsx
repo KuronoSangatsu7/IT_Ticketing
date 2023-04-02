@@ -4,7 +4,7 @@ import { symptomDetailsType } from "@/types/symptomTypes"
 import { Flex, Box } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
-export default function Ticket(params: symptomDetailsType) {
+export default function Symptom(params: symptomDetailsType) {
 	const symptomFields = [
 		{ fieldName: "Name", fieldData: params.name },
 		{ fieldName: "Department", fieldData: params.department },

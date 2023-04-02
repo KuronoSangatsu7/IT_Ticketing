@@ -1,14 +1,38 @@
 import { useEffect } from "react"
-import { getFirestore, onSnapshot, query, collection } from "firebase/firestore"
+import {
+	getFirestore,
+	onSnapshot,
+	query,
+	collection,
+	where,
+	type Firestore,
+	getCountFromServer,
+} from "firebase/firestore"
 import app from "@/lib/firebaseInit"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
-import { departmentsAtom, symptomsAtom, techsAtom, ticketsAtom } from "@/store/store"
+import {
+	departmentsAtom,
+	symptomsAtom,
+	techsAtom,
+	ticketsAtom,
+} from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { techDetailsType } from "@/types/techTypes"
 import { departmentDetailsType } from "@/types/departmentTypes"
 
-const useFirebaseSub = (collectionName: "tickets" | "techs" | "symptoms" | "departments") => {
+const getTechTicketCount = async (db: Firestore, techName: string) => {
+	const coll = collection(db, "tickets")
+	const q = query(coll, where("assigned_tech", "==", techName))
+	const snapshot = await getCountFromServer(q)
+	const count = snapshot.data().count
+
+	return count
+}
+
+const useFirebaseSub = (
+	collectionName: "tickets" | "techs" | "symptoms" | "departments"
+) => {
 	const [, setTickets] = useAtom(ticketsAtom)
 	const [, setSymptoms] = useAtom(symptomsAtom)
 	const [, setTechs] = useAtom(techsAtom)
@@ -18,7 +42,7 @@ const useFirebaseSub = (collectionName: "tickets" | "techs" | "symptoms" | "depa
 	const q = query(collection(db, collectionName))
 
 	useEffect(() => {
-		const unsubscribe = onSnapshot(q, (querySnapshot) => {
+		const unsubscribe = onSnapshot(q, async (querySnapshot) => {
 			const items: Array<
 				| ticketDetailsType
 				| techDetailsType
@@ -45,14 +69,32 @@ const useFirebaseSub = (collectionName: "tickets" | "techs" | "symptoms" | "depa
 
 				setSymptoms(items as symptomDetailsType[])
 			} else if (collectionName == "techs") {
-				querySnapshot.forEach((doc) => {
+				querySnapshot.forEach(async (doc) => {
 					items.push({
 						...doc.data(),
 						id: doc.id,
 					} as techDetailsType)
 				})
 
-				setTechs(items as techDetailsType[])
+				// Query db for assigned_tickets counts
+				const ticketCounts: Promise<number>[] = []
+				const techItems = items as techDetailsType[]
+
+				techItems.forEach((item) =>
+					ticketCounts.push(getTechTicketCount(db, item.full_name))
+				)
+
+				Promise.all(ticketCounts).then((resolvedCounts) =>
+					setTechs(
+						techItems.map((item, i) => {
+							return {
+								...item,
+								assigned_tickets: resolvedCounts[i],
+							}
+						})
+					)
+				)
+
 			} else if (collectionName == "departments") {
 				querySnapshot.forEach((doc) => {
 					items.push({

@@ -54,7 +54,6 @@ export default function TicketForm(props: {
 	const [departments] = useAtom(departmentsAtom)
 
 	const onSubmit = async (data: Inputs) => {
-		// Either add or update
 		props
 			.onSubmit(data)
 			.then(() => {
@@ -64,7 +63,6 @@ export default function TicketForm(props: {
 	}
 
 	const handleDelete = () => {
-		// ALways delete
 		props.onDelete &&
 			props
 				.onDelete()
@@ -264,7 +262,7 @@ export default function TicketForm(props: {
 				/>
 
 				<FormErrorMessage>
-					{errors.assigned_tech && errors.assigned_tech.message}
+					{errors.department && errors.department.message}
 				</FormErrorMessage>
 			</FormControl>
 
