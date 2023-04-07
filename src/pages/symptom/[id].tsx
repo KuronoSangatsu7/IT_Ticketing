@@ -57,7 +57,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: false,
+		fallback: 'blocking',
 	}
 }
 
@@ -68,5 +68,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 		props: {
 			...symptomData,
 		},
+		revalidate: 5
 	}
 }

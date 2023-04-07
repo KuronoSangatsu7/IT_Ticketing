@@ -4,7 +4,6 @@ import TicketLabel from "@/components/TicketItem/TicketLabel"
 import Header from "@/components/Header"
 import { useRouter } from "next/router"
 import LoadingSpinner from "@/components/LoadingSpinner"
-import useFirebaseSub from "@/hooks/use-firebase-sub"
 import { useAtom } from "jotai"
 import { ticketsAtom } from "@/store/store"
 
