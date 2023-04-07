@@ -2,12 +2,21 @@ import { currentUserAtom } from "@/store/store"
 import { Grid, GridItem } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import LoadingSpinner from "./LoadingSpinner"
 import SideBar from "./SideBar/SideBar"
 import SignInMessage from "./SignInMessage"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	const [currentUser] = useAtom(currentUserAtom)
 	const router = useRouter()
+
+	let content: React.ReactNode = <LoadingSpinner />
+
+	currentUser === false && (content = <SignInMessage />)
+	
+	currentUser == false && router.pathname == "/" && (content = children)
+
+	currentUser && (content = children)
 
 	return (
 		<Grid
@@ -41,13 +50,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				justifyContent="center"
 				overflow="scroll"
 			>
-				{currentUser ? (
-					children
-				) : router.pathname == "/" ? (
-					children
-				) : (
-					<SignInMessage />
-				)}
+				{content}
 			</GridItem>
 			<GridItem area="nav">
 				<SideBar />

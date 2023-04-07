@@ -8,24 +8,24 @@ import Head from "next/head"
 export default function Home() {
 	const [currentUser] = useAtom(currentUserAtom)
 
-	// let content = <LoadingSpinner />
+	let content = <LoadingSpinner marginTop="200px" />
 
-	// currentUser === false &&
-	// 	(content = (
-	// 		<>
-	// 			<Box as="span" fontSize="4xl" p="200px">
-	// 				Welcome to IT Ticketing!
-	// 			</Box>
-	// 			<SignInButton />
-	// 		</>
-	// 	))
+	currentUser === false &&
+		(content = (
+			<>
+				<Box as="span" fontSize="4xl" py="200px">
+					Welcome to IT Ticketing!
+				</Box>
+				<SignInButton />
+			</>
+		))
 
-	// currentUser &&
-	// 	(content = (
-	// 		<Box as="span" fontSize="4xl" p="200px">
-	// 			Welcome to IT Ticketing!
-	// 		</Box>
-	// 	))
+	currentUser &&
+		(content = (
+			<Box as="span" fontSize="4xl" py="200px">
+				Welcome to IT Ticketing!
+			</Box>
+		))
 
 	return (
 		<>
@@ -48,10 +48,7 @@ export default function Home() {
 				h="80%"
 				w="full"
 			>
-				<Box as="span" fontSize="4xl" p="200px">
-					Welcome to IT Ticketing!
-				</Box>
-				{!currentUser && <SignInButton />}
+				{content}
 			</Flex>
 		</>
 	)

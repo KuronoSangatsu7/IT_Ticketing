@@ -94,7 +94,6 @@ const useFirebaseSub = (
 						})
 					)
 				)
-
 			} else if (collectionName == "departments") {
 				querySnapshot.forEach((doc) => {
 					items.push({
@@ -107,9 +106,7 @@ const useFirebaseSub = (
 			}
 		})
 
-		return () => {
-			unsubscribe()
-		}
+		return () => unsubscribe()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 }
