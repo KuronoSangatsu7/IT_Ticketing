@@ -1,4 +1,4 @@
-import { deleteItem, updateItem } from "@/lib/tickets"
+import useAlert from "@/hooks/use-alert"
 import {
 	currentUserAtom,
 	departmentsAtom,
@@ -14,8 +14,10 @@ import {
 	Input,
 	Checkbox,
 	Select,
+	Textarea,
 } from "@chakra-ui/react"
 import { useAtom } from "jotai"
+import { useRouter } from "next/router"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
@@ -53,13 +55,25 @@ export default function TicketForm(props: {
 	const [techs] = useAtom(techsAtom)
 	const [departments] = useAtom(departmentsAtom)
 
+	const router = useRouter()
+	const { showAlert } = useAlert()
+
 	const onSubmit = async (data: Inputs) => {
 		props
 			.onSubmit(data)
 			.then(() => {
-				alert("Item updated successfuly")
+				showAlert({
+					status: "success",
+					text: "Ticket updated successfully",
+				})
+				router.push("/tickets")
 			})
-			.catch((e) => alert(`Operation Failed. Please try again`))
+			.catch((e) =>
+				showAlert({
+					status: "error",
+					text: "Operation failed. Please try again later",
+				})
+			)
 	}
 
 	const handleDelete = () => {
@@ -67,9 +81,18 @@ export default function TicketForm(props: {
 			props
 				.onDelete()
 				.then(() => {
-					alert("Item deleted successfuly")
+					showAlert({
+						status: "success",
+						text: "Ticket deleted successfully",
+					})
+					router.push("/tickets")
 				})
-				.catch((e) => alert("Failed to delete ticket. Please try again"))
+				.catch((e) =>
+					showAlert({
+						status: "error",
+						text: "Operation failed. Please try again later",
+					})
+				)
 	}
 
 	return (
@@ -291,7 +314,7 @@ export default function TicketForm(props: {
 
 			<FormControl isInvalid={errors.notes && true}>
 				<FormItemLabel htmlFor="notes" text="Notes" />
-				<Input
+				<Textarea
 					id="notes"
 					placeholder="Notes for IT department"
 					{...register("notes")}

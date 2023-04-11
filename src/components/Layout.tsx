@@ -1,5 +1,5 @@
-import { currentUserAtom } from "@/store/store"
-import { Grid, GridItem } from "@chakra-ui/react"
+import { alertStateAtom, currentUserAtom } from "@/store/store"
+import { Alert, AlertIcon, Grid, GridItem, Portal } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import LoadingSpinner from "./LoadingSpinner"
@@ -8,12 +8,13 @@ import SignInMessage from "./SignInMessage"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	const [currentUser] = useAtom(currentUserAtom)
+	const [alertState] = useAtom(alertStateAtom)
 	const router = useRouter()
 
 	let content: React.ReactNode = <LoadingSpinner />
 
 	currentUser === false && (content = <SignInMessage />)
-	
+
 	currentUser == false && router.pathname == "/" && (content = children)
 
 	currentUser && (content = children)
@@ -33,6 +34,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			h="100vh"
 			bg="backgroundGray"
 		>
+			<Alert
+				display={alertState.visible == true ? "flex" : "none"}
+				position="fixed"
+				justifySelf="center"
+				top={{ base: "75px", md: "40px" }}
+				w={{ base: "60%", md: "25%" }}
+				status={alertState.status}
+				borderRadius="2xl"
+			>
+				<AlertIcon />
+				{alertState.text}
+			</Alert>
 			<GridItem
 				sx={{
 					"::-webkit-scrollbar": {

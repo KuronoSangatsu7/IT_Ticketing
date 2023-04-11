@@ -1,3 +1,4 @@
+import useAlert from "@/hooks/use-alert"
 import { departmentsAtom } from "@/store/store"
 import { type techDetailsType } from "@/types/techTypes"
 import {
@@ -9,6 +10,7 @@ import {
 	Select,
 } from "@chakra-ui/react"
 import { useAtom } from "jotai"
+import { useRouter } from "next/router"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
@@ -39,13 +41,25 @@ export default function TechForm(props: {
 
 	const [departments] = useAtom(departmentsAtom)
 
+	const router = useRouter()
+	const { showAlert } = useAlert()
+
 	const onSubmit = async (data: Inputs) => {
 		props
 			.onSubmit(data)
 			.then(() => {
-				alert("Item updated successfuly")
+				showAlert({
+					status: "success",
+					text: "Tech info updated successfully",
+				})
+				router.push("/techs")
 			})
-			.catch((e) => alert(`Operation Failed. Please try again`))
+			.catch((e) =>
+				showAlert({
+					status: "error",
+					text: "Operation failed. Please try again later",
+				})
+			)
 	}
 
 	const handleDelete = () => {
@@ -53,10 +67,17 @@ export default function TechForm(props: {
 			props
 				.onDelete()
 				.then(() => {
-					alert("Item deleted successfuly")
+					showAlert({
+						status: "success",
+						text: "Tech info deleted successfully",
+					})
+					router.push("/techs")
 				})
 				.catch((e) =>
-					alert("Failed to delete ticket. Please try again")
+					showAlert({
+						status: "error",
+						text: "Operation failed. Please try again later",
+					})
 				)
 	}
 
