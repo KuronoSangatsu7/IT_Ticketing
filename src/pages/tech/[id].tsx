@@ -22,7 +22,7 @@ export default function Tech(params: techDetailsType) {
 	}
 
 	const handleBack = () => {
-		router.push('/techs')
+		router.push("/techs")
 	}
 
 	return (
@@ -73,7 +73,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	}
 }
 
@@ -81,12 +81,12 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 	const techData = await getItemData("techs", params.id)
 
 	// Tech does not exist
-	if(!techData.owner_id){
-        return{
-            notFound: true,
-            revalidate: 5
-        }
-    }
+	if (!techData.owner_id) {
+		return {
+			notFound: true,
+			revalidate: 5,
+		}
+	}
 
 	return {
 		props: {

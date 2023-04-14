@@ -59,8 +59,8 @@ export default function SideBar() {
 			gap="4"
 			alignItems="center"
 			bg="darkBlue"
-			py={{base: 0, md: 5}}
-			px={{base: 2, md: 0}}
+			py={{ base: 0, md: 5 }}
+			px={{ base: 2, md: 0 }}
 		>
 			<Icon
 				h="50px"

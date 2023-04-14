@@ -12,4 +12,3 @@ export interface ticketDetailsType {
 	id: string
 	owner_id: string
 }
-

@@ -50,8 +50,8 @@ export default function EditSymptom(props: symptomDetailsType) {
 			/>
 		</Flex>
 	)
-	
-	if(currentUser)
+
+	if (currentUser)
 		if (currentUser.uid != props.owner_id)
 			content = <InsufficientPermissionMessage />
 
@@ -69,7 +69,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const symptomData = await getItemData("symptoms", params.id)
-	
+
 	// Symptom does not exist
 	if (!symptomData.owner_id) {
 		return {

@@ -162,7 +162,7 @@ export default function SymptomForm(props: {
 			>
 				Remove Symptom
 			</Button>
-			
+
 			<AlertDialog
 				isOpen={isOpen}
 				leastDestructiveRef={cancelRef}
@@ -194,7 +194,6 @@ export default function SymptomForm(props: {
 					</AlertDialogContent>
 				</AlertDialogOverlay>
 			</AlertDialog>
-
 		</Box>
 	)
 }

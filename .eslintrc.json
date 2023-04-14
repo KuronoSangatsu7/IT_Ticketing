@@ -1,4 +1,6 @@
 {
-  "extends": "next/core-web-vitals",
-  "ignorePatterns": ["index.tsx"]
+	"extends": ["next/core-web-vitals", "prettier"],
+	"plugins": ["prettier"],
+	"ignorePatterns": ["node_modules/", ".next"],
+	"rules": { "prettier/prettier": ["error"] }
 }

@@ -24,7 +24,6 @@ import { symptomsAtom } from "@/store/store"
 // })
 
 export default function Symptoms() {
-
 	const [symptoms] = useAtom(symptomsAtom)
 
 	const router = useRouter()

@@ -81,12 +81,12 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 	const symptomData = await getItemData("symptoms", params.id)
 
 	// Symptom does not exist
-	if(!symptomData.owner_id){
-        return{
-            notFound: true,
-            revalidate: 5
-        }
-    }
+	if (!symptomData.owner_id) {
+		return {
+			notFound: true,
+			revalidate: 5,
+		}
+	}
 
 	return {
 		props: {

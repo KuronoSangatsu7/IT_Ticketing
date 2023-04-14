@@ -70,7 +70,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const techData = await getItemData("techs", params.id)
-	
+
 	// Tech does not exist
 	if (!techData.owner_id) {
 		return {

@@ -345,7 +345,7 @@ export default function TicketForm(props: {
 			>
 				Delete Ticket
 			</Button>
-			
+
 			<AlertDialog
 				isOpen={isOpen}
 				leastDestructiveRef={cancelRef}
@@ -377,7 +377,6 @@ export default function TicketForm(props: {
 					</AlertDialogContent>
 				</AlertDialogOverlay>
 			</AlertDialog>
-
 		</Box>
 	)
 }

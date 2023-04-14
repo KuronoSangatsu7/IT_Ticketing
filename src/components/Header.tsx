@@ -24,8 +24,8 @@ export default function Header(props: {
 	onClick?: () => void
 	onBack?: () => void
 }) {
-
-	const [currentTicketFilter, setCurrentTicketFilter] = useAtom(ticketFilterAtom)
+	const [currentTicketFilter, setCurrentTicketFilter] =
+		useAtom(ticketFilterAtom)
 
 	const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		setCurrentTicketFilter(e.target.value as "all-tickets" | "my-tickets")
@@ -67,7 +67,12 @@ export default function Header(props: {
 				<Spacer></Spacer>
 				{props.ticketFilter && (
 					<>
-						<Select defaultValue="all-tickets" value={currentTicketFilter} onChange={e => handleFilterChange(e)} w='200px'>
+						<Select
+							defaultValue="all-tickets"
+							value={currentTicketFilter}
+							onChange={(e) => handleFilterChange(e)}
+							w="200px"
+						>
 							<option value="all-tickets">All Tickets</option>
 							<option value="my-tickets">My Tickets</option>
 						</Select>

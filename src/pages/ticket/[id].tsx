@@ -27,7 +27,7 @@ export default function Ticket(params: ticketDetailsType) {
 	}
 
 	const handleBack = () => {
-		router.push('/tickets')
+		router.push("/tickets")
 	}
 
 	return (
@@ -126,20 +126,20 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	}
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const ticketData = await getItemData("tickets", params.id)
-	
+
 	// Ticket does not exist
-	if(!ticketData.owner_id){
-        return{
-            notFound: true,
-            revalidate: 5
-        }
-    }
+	if (!ticketData.owner_id) {
+		return {
+			notFound: true,
+			revalidate: 5,
+		}
+	}
 
 	return {
 		props: {

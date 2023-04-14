@@ -6,7 +6,7 @@ import { useEffect } from "react"
 const useAuthSub = () => {
 	const auth = getAuth()
 	const [, setCurrentUser] = useAtom(currentUserAtom)
-	
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
