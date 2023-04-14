@@ -1,8 +1,10 @@
 import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
+import { currentUserAtom } from "@/store/store"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { CheckIcon, TimeIcon } from "@chakra-ui/icons"
 import { Flex, Box, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 
 export default function Ticket(params: ticketDetailsType) {
@@ -18,6 +20,7 @@ export default function Ticket(params: ticketDetailsType) {
 	]
 
 	const router = useRouter()
+	const [currentUser] = useAtom(currentUserAtom)
 
 	const handleClick = () => {
 		router.push(`/ticket/edit/${params.id}`)
@@ -32,7 +35,13 @@ export default function Ticket(params: ticketDetailsType) {
 			<Header
 				title="Ticket"
 				itemId={params.id}
-				buttonName="Edit Ticket"
+				buttonName={
+					currentUser
+						? currentUser.uid == params.owner_id
+							? "Edit Ticket"
+							: "None"
+						: "None"
+				}
 				buttonIcon="Edit"
 				onClick={handleClick}
 				onBack={handleBack}
@@ -123,6 +132,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const ticketData = await getItemData("tickets", params.id)
+	
+	// Ticket does not exist
+	if(!ticketData.owner_id){
+        return{
+            notFound: true,
+            revalidate: false
+        }
+    }
 
 	return {
 		props: {

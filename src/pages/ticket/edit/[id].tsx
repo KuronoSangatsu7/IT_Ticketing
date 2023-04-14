@@ -7,9 +7,9 @@ import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
+import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
 
 export default function EditTicket(props: ticketDetailsType) {
-
 	const [currentUser] = useAtom(currentUserAtom)
 
 	const router = useRouter()
@@ -20,11 +20,11 @@ export default function EditTicket(props: ticketDetailsType) {
 			id: props.id,
 			owner_id: currentUser ? currentUser.uid : "no one",
 		}
-		
+
 		return updateItem("tickets", updateQuery)
 	}
 
-	const handleDelete = async() => {
+	const handleDelete = async () => {
 		return deleteItem("tickets", props.id)
 	}
 
@@ -32,12 +32,28 @@ export default function EditTicket(props: ticketDetailsType) {
 		router.push(`/ticket/${props.id}`)
 	}
 
-	return (
+	let content = (
 		<Flex direction="column" w="full">
-			<Header title="Edit Ticket" buttonName="None" itemId={props.id} onBack={handleBack} />
-			<TicketForm buttonName="Save Changes" ticket={props} onSubmit={handleSubmit} onDelete={handleDelete} />
+			<Header
+				title="Edit Ticket"
+				buttonName="None"
+				itemId={props.id}
+				onBack={handleBack}
+			/>
+			<TicketForm
+				buttonName="Save Changes"
+				ticket={props}
+				onSubmit={handleSubmit}
+				onDelete={handleDelete}
+			/>
 		</Flex>
 	)
+
+	if (currentUser)
+		if (currentUser.uid != props.owner_id)
+			content = <InsufficientPermissionMessage />
+
+	return <>{content}</>
 }
 
 export async function getStaticPaths() {
@@ -45,12 +61,20 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	}
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const ticketData = await getItemData("tickets", params.id)
+
+	// Ticket does not exist
+	if (!ticketData.owner_id) {
+		return {
+			notFound: true,
+			revalidate: false,
+		}
+	}
 
 	return {
 		props: {

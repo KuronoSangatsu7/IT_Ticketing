@@ -7,25 +7,27 @@ import { techDetailsType } from "@/types/techTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
+import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
 
 export default function EditTech(props: techDetailsType) {
-
 	const [currentUser] = useAtom(currentUserAtom)
 
 	const router = useRouter()
 
-	const handleSubmit = (data: Omit<techDetailsType, "id" | "owner_id" | "assigned_tickets">) => {
+	const handleSubmit = (
+		data: Omit<techDetailsType, "id" | "owner_id" | "assigned_tickets">
+	) => {
 		const updateQuery: techDetailsType = {
 			...data,
 			id: props.id,
 			assigned_tickets: 0,
 			owner_id: currentUser ? currentUser.uid : "no one",
 		}
-		
+
 		return updateItem("techs", updateQuery)
 	}
 
-	const handleDelete = async() => {
+	const handleDelete = async () => {
 		return deleteItem("techs", props.id)
 	}
 
@@ -33,12 +35,28 @@ export default function EditTech(props: techDetailsType) {
 		router.push(`/tech/${props.id}`)
 	}
 
-	return (
+	let content = (
 		<Flex direction="column" w="full">
-			<Header title="Edit Tech" buttonName="None" itemId={props.id} onBack={handleBack} />
-			<TechForm buttonName="Save Changes" tech={props} onSubmit={handleSubmit} onDelete={handleDelete} />
+			<Header
+				title="Edit Tech"
+				buttonName="None"
+				itemId={props.id}
+				onBack={handleBack}
+			/>
+			<TechForm
+				buttonName="Save Changes"
+				tech={props}
+				onSubmit={handleSubmit}
+				onDelete={handleDelete}
+			/>
 		</Flex>
 	)
+
+	if (currentUser)
+		if (currentUser.uid != props.owner_id)
+			content = <InsufficientPermissionMessage />
+
+	return <>{content}</>
 }
 
 export async function getStaticPaths() {
@@ -46,12 +64,20 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	}
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const techData = await getItemData("techs", params.id)
+
+	// Tech does not exist
+	if (!techData.owner_id) {
+		return {
+			notFound: true,
+			revalidate: false,
+		}
+	}
 
 	return {
 		props: {

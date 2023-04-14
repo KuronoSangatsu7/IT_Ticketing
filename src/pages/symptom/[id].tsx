@@ -1,7 +1,9 @@
 import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
+import { currentUserAtom } from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { Flex, Box } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 
 export default function Symptom(params: symptomDetailsType) {
@@ -10,6 +12,8 @@ export default function Symptom(params: symptomDetailsType) {
 		{ fieldName: "Department", fieldData: params.department },
 	]
 
+	const [currentUser] = useAtom(currentUserAtom)
+
 	const router = useRouter()
 
 	const handleClick = () => {
@@ -17,15 +21,22 @@ export default function Symptom(params: symptomDetailsType) {
 	}
 
 	const handleBack = () => {
-		router.push('/symptoms')
+		router.push("/symptoms")
 	}
 
 	return (
 		<Flex direction="column" w="full">
+			{}
 			<Header
 				title="Symptom"
 				itemId={params.id}
-				buttonName="Edit Symptom"
+				buttonName={
+					currentUser
+						? currentUser.uid == params.owner_id
+							? "Edit Symptom"
+							: "None"
+						: "None"
+				}
 				buttonIcon="Edit"
 				onClick={handleClick}
 				onBack={handleBack}
@@ -62,17 +73,25 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	}
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const symptomData = await getItemData("symptoms", params.id)
 
+	// Symptom does not exist
+	if(!symptomData.owner_id){
+        return{
+            notFound: true,
+            revalidate: false
+        }
+    }
+
 	return {
 		props: {
 			...symptomData,
 		},
-		revalidate: 5
+		revalidate: 5,
 	}
 }

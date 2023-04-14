@@ -1,7 +1,9 @@
 import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
+import { currentUserAtom } from "@/store/store"
 import { techDetailsType } from "@/types/techTypes"
-import { Flex, Box } from "@chakra-ui/react"
+import { Flex, Box, useAccordion } from "@chakra-ui/react"
+import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 
 export default function Tech(params: techDetailsType) {
@@ -13,6 +15,7 @@ export default function Tech(params: techDetailsType) {
 	]
 
 	const router = useRouter()
+	const [currentUser] = useAtom(currentUserAtom)
 
 	const handleClick = () => {
 		router.push(`/tech/edit/${params.id}`)
@@ -27,7 +30,13 @@ export default function Tech(params: techDetailsType) {
 			<Header
 				title="Tech"
 				itemId={params.id}
-				buttonName="Edit Tech"
+				buttonName={
+					currentUser
+						? currentUser.uid == params.owner_id
+							? "Edit Tech"
+							: "None"
+						: "None"
+				}
 				buttonIcon="Edit"
 				onClick={handleClick}
 				onBack={handleBack}
@@ -70,6 +79,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const techData = await getItemData("techs", params.id)
+
+	// Tech does not exist
+	if(!techData.owner_id){
+        return{
+            notFound: true,
+            revalidate: false
+        }
+    }
 
 	return {
 		props: {
