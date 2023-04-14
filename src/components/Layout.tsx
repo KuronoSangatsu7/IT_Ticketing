@@ -42,6 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				w={{ base: "60%", md: "25%" }}
 				status={alertState.status}
 				borderRadius="2xl"
+				zIndex="10"
 			>
 				<AlertIcon />
 				{alertState.text}
