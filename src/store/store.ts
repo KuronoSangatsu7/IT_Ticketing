@@ -22,3 +22,5 @@ export const techsAtom = atom<techDetailsType[] | undefined>(undefined)
 export const departmentsAtom = atom<departmentDetailsType[] | undefined>(
 	undefined
 )
+
+export const ticketFilterAtom = atom<"all-tickets" | "my-tickets">("all-tickets")

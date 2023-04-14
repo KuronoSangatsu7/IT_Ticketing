@@ -5,7 +5,7 @@ import Header from "@/components/Header"
 import { useRouter } from "next/router"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { useAtom } from "jotai"
-import { ticketsAtom } from "@/store/store"
+import { currentUserAtom, ticketFilterAtom, ticketsAtom } from "@/store/store"
 
 // TODO: remove test data
 // const _tickets: ticketDetailsType[] = Object.values({
@@ -39,9 +39,10 @@ import { ticketsAtom } from "@/store/store"
 // })
 
 export default function Tickets() {
-
 	const router = useRouter()
 	const [tickets] = useAtom(ticketsAtom)
+	const [currentUser] = useAtom(currentUserAtom)
+	const [currentTicketFilter] = useAtom(ticketFilterAtom)
 
 	const handleClick = () => {
 		router.push("/new_ticket")
@@ -50,11 +51,25 @@ export default function Tickets() {
 	let pageContent = <LoadingSpinner />
 
 	tickets &&
+		currentTicketFilter == "all-tickets" &&
 		(pageContent = (
 			<>
 				{tickets.map((ticket) => (
 					<TicketItem {...ticket} key={ticket.id} />
 				))}
+			</>
+		))
+
+	tickets &&
+		currentUser &&
+		currentTicketFilter == "my-tickets" &&
+		(pageContent = (
+			<>
+				{tickets
+					.filter((ticket) => ticket.owner_id == currentUser.uid)
+					.map((ticket) => (
+						<TicketItem {...ticket} key={ticket.id} />
+					))}
 			</>
 		))
 
@@ -64,6 +79,7 @@ export default function Tickets() {
 				title="Tickets"
 				buttonName="New Ticket"
 				collectionName="tickets"
+				ticketFilter={true}
 				onClick={handleClick}
 			/>
 			<TicketLabel />

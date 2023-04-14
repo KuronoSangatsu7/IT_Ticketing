@@ -7,8 +7,12 @@ import {
 	VStack,
 	Text,
 	IconButton,
+	Select,
 } from "@chakra-ui/react"
 import { AddIcon, ArrowBackIcon, EditIcon } from "@chakra-ui/icons"
+import { useAtom } from "jotai"
+import { ticketFilterAtom } from "@/store/store"
+import { ChangeEvent } from "react"
 
 export default function Header(props: {
 	title: string
@@ -16,9 +20,17 @@ export default function Header(props: {
 	buttonName: string
 	buttonIcon?: "Edit"
 	collectionName?: string
+	ticketFilter?: boolean
 	onClick?: () => void
 	onBack?: () => void
 }) {
+
+	const [currentTicketFilter, setCurrentTicketFilter] = useAtom(ticketFilterAtom)
+
+	const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
+		setCurrentTicketFilter(e.target.value as "all-tickets" | "my-tickets")
+	}
+
 	return (
 		<VStack
 			minH="10px"
@@ -31,10 +43,10 @@ export default function Header(props: {
 			flexDirection="column"
 			minHeight="75px"
 		>
-			<Flex w="full" alignItems='center' gap='5px'>
+			<Flex w="full" alignItems="center" gap="5px">
 				{props.onBack && (
 					<IconButton
-						h='50px'
+						h="50px"
 						aria-label="Search database"
 						icon={<ArrowBackIcon />}
 						onClick={() => props.onBack && props.onBack()}
@@ -53,6 +65,14 @@ export default function Header(props: {
 					)}
 				</Heading>
 				<Spacer></Spacer>
+				{props.ticketFilter && (
+					<>
+						<Select defaultValue="all-tickets" value={currentTicketFilter} onChange={e => handleFilterChange(e)} w='200px'>
+							<option value="all-tickets">All Tickets</option>
+							<option value="my-tickets">My Tickets</option>
+						</Select>
+					</>
+				)}
 				{props.buttonName != "None" && (
 					<>
 						<Button
