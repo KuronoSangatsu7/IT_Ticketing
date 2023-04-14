@@ -15,9 +15,17 @@ import {
 	Checkbox,
 	Select,
 	Textarea,
+	AlertDialog,
+	AlertDialogOverlay,
+	AlertDialogContent,
+	AlertDialogHeader,
+	AlertDialogBody,
+	AlertDialogFooter,
+	useDisclosure,
 } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
@@ -57,6 +65,8 @@ export default function TicketForm(props: {
 
 	const router = useRouter()
 	const { showAlert } = useAlert()
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const cancelRef = useRef() as React.RefObject<HTMLButtonElement>
 
 	const onSubmit = async (data: Inputs) => {
 		props
@@ -331,10 +341,43 @@ export default function TicketForm(props: {
 			<Button
 				display={props.ticket ? "block" : "none"}
 				colorScheme="red"
-				onClick={handleDelete}
+				onClick={onOpen}
 			>
 				Delete Ticket
 			</Button>
+			
+			<AlertDialog
+				isOpen={isOpen}
+				leastDestructiveRef={cancelRef}
+				onClose={onClose}
+			>
+				<AlertDialogOverlay>
+					<AlertDialogContent>
+						<AlertDialogHeader fontSize="lg" fontWeight="bold">
+							Delete Ticket
+						</AlertDialogHeader>
+
+						<AlertDialogBody>
+							Are you sure you want to delete this ticket? You
+							cannot undo this action afterwards.
+						</AlertDialogBody>
+
+						<AlertDialogFooter>
+							<Button ref={cancelRef} onClick={onClose}>
+								Cancel
+							</Button>
+							<Button
+								colorScheme="red"
+								onClick={handleDelete}
+								ml={3}
+							>
+								Delete
+							</Button>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialogOverlay>
+			</AlertDialog>
+
 		</Box>
 	)
 }

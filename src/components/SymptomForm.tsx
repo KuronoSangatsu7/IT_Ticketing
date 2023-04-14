@@ -8,9 +8,17 @@ import {
 	Button,
 	Input,
 	Select,
+	AlertDialog,
+	AlertDialogOverlay,
+	AlertDialogContent,
+	AlertDialogHeader,
+	AlertDialogBody,
+	AlertDialogFooter,
+	useDisclosure,
 } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
 import FormItemLabel from "./FormItemLabel"
 
@@ -41,6 +49,8 @@ export default function SymptomForm(props: {
 
 	const router = useRouter()
 	const { showAlert } = useAlert()
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const cancelRef = useRef() as React.RefObject<HTMLButtonElement>
 
 	const onSubmit = async (data: Inputs) => {
 		props
@@ -148,10 +158,43 @@ export default function SymptomForm(props: {
 			<Button
 				display={props.symptom ? "block" : "none"}
 				colorScheme="red"
-				onClick={handleDelete}
+				onClick={onOpen}
 			>
 				Remove Symptom
 			</Button>
+			
+			<AlertDialog
+				isOpen={isOpen}
+				leastDestructiveRef={cancelRef}
+				onClose={onClose}
+			>
+				<AlertDialogOverlay>
+					<AlertDialogContent>
+						<AlertDialogHeader fontSize="lg" fontWeight="bold">
+							Delete Symptom
+						</AlertDialogHeader>
+
+						<AlertDialogBody>
+							Are you sure you want to delete this symptom? You
+							cannot undo this action afterwards.
+						</AlertDialogBody>
+
+						<AlertDialogFooter>
+							<Button ref={cancelRef} onClick={onClose}>
+								Cancel
+							</Button>
+							<Button
+								colorScheme="red"
+								onClick={handleDelete}
+								ml={3}
+							>
+								Delete
+							</Button>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialogOverlay>
+			</AlertDialog>
+
 		</Box>
 	)
 }
