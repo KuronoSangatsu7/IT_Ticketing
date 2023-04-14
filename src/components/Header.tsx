@@ -8,7 +8,7 @@ import {
 	Text,
 	IconButton,
 } from "@chakra-ui/react"
-import { AddIcon, EditIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowBackIcon, EditIcon } from "@chakra-ui/icons"
 
 export default function Header(props: {
 	title: string
@@ -17,6 +17,7 @@ export default function Header(props: {
 	buttonIcon?: "Edit"
 	collectionName?: string
 	onClick?: () => void
+	onBack?: () => void
 }) {
 	return (
 		<VStack
@@ -30,7 +31,15 @@ export default function Header(props: {
 			flexDirection="column"
 			minHeight="75px"
 		>
-			<Flex w="full">
+			<Flex w="full" alignItems='center' gap='5px'>
+				{props.onBack && (
+					<IconButton
+						h='50px'
+						aria-label="Search database"
+						icon={<ArrowBackIcon />}
+						onClick={() => props.onBack && props.onBack()}
+					/>
+				)}
 				<Heading>
 					{props.title}
 					{props.hasOwnProperty("itemId") ? (

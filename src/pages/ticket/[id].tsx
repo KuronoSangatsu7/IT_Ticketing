@@ -23,6 +23,10 @@ export default function Ticket(params: ticketDetailsType) {
 		router.push(`/ticket/edit/${params.id}`)
 	}
 
+	const handleBack = () => {
+		router.push('/tickets')
+	}
+
 	return (
 		<Flex direction="column" w="full">
 			<Header
@@ -31,6 +35,7 @@ export default function Ticket(params: ticketDetailsType) {
 				buttonName="Edit Ticket"
 				buttonIcon="Edit"
 				onClick={handleClick}
+				onBack={handleBack}
 			/>
 			<Flex
 				flexDirection="column"

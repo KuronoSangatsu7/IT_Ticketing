@@ -5,23 +5,32 @@ import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { addItem } from "@/lib/tickets"
+import { useRouter } from "next/router"
 
 export default function NewSymptom() {
 	const [currentUser] = useAtom(currentUserAtom)
 
-	const handleSubmit = (data: Omit<symptomDetailsType, "id" | "owner_id">) => {
+	const router = useRouter()
+
+	const handleSubmit = (
+		data: Omit<symptomDetailsType, "id" | "owner_id">
+	) => {
 		const addQuery: Omit<symptomDetailsType, "id"> = {
 			...data,
 			owner_id: currentUser ? currentUser.uid : "no one",
 		}
-		
+
 		return addItem("symptoms", addQuery)
+	}
+
+	const handleBack = () => {
+		router.push("/symptoms")
 	}
 
 	return (
 		<Flex direction="column" w="full">
-			<Header title="New Symptom" buttonName="None" />
-			<SymptomForm  onSubmit={handleSubmit} />
+			<Header title="New Symptom" buttonName="None" onBack={handleBack} />
+			<SymptomForm onSubmit={handleSubmit} />
 		</Flex>
 	)
 }

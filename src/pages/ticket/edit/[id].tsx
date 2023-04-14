@@ -6,10 +6,13 @@ import { getItemData } from "@/lib/tickets"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
+import { useRouter } from "next/router"
 
 export default function EditTicket(props: ticketDetailsType) {
 
 	const [currentUser] = useAtom(currentUserAtom)
+
+	const router = useRouter()
 
 	const handleSubmit = (data: Omit<ticketDetailsType, "id" | "owner_id">) => {
 		const updateQuery: ticketDetailsType = {
@@ -25,9 +28,13 @@ export default function EditTicket(props: ticketDetailsType) {
 		return deleteItem("tickets", props.id)
 	}
 
+	const handleBack = () => {
+		router.push(`/ticket/${props.id}`)
+	}
+
 	return (
 		<Flex direction="column" w="full">
-			<Header title="Edit Ticket" buttonName="None" itemId={props.id} />
+			<Header title="Edit Ticket" buttonName="None" itemId={props.id} onBack={handleBack} />
 			<TicketForm buttonName="Save Changes" ticket={props} onSubmit={handleSubmit} onDelete={handleDelete} />
 		</Flex>
 	)

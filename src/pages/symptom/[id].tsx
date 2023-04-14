@@ -16,6 +16,10 @@ export default function Symptom(params: symptomDetailsType) {
 		router.push(`/symptom/edit/${params.id}`)
 	}
 
+	const handleBack = () => {
+		router.push('/symptoms')
+	}
+
 	return (
 		<Flex direction="column" w="full">
 			<Header
@@ -24,6 +28,7 @@ export default function Symptom(params: symptomDetailsType) {
 				buttonName="Edit Symptom"
 				buttonIcon="Edit"
 				onClick={handleClick}
+				onBack={handleBack}
 			/>
 			<Flex
 				flexDirection="column"

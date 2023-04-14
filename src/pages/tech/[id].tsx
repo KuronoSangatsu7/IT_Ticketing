@@ -18,6 +18,10 @@ export default function Tech(params: techDetailsType) {
 		router.push(`/tech/edit/${params.id}`)
 	}
 
+	const handleBack = () => {
+		router.push('/techs')
+	}
+
 	return (
 		<Flex direction="column" w="full">
 			<Header
@@ -26,6 +30,7 @@ export default function Tech(params: techDetailsType) {
 				buttonName="Edit Tech"
 				buttonIcon="Edit"
 				onClick={handleClick}
+				onBack={handleBack}
 			/>
 			<Flex
 				flexDirection="column"

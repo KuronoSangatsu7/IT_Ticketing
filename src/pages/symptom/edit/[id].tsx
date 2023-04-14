@@ -6,10 +6,13 @@ import { symptomDetailsType } from "@/types/symptomTypes"
 import SymptomForm from "@/components/SymptomForm"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
+import { useRouter } from "next/router"
 
 export default function EditSymptom(props: symptomDetailsType) {
 
 	const [currentUser] = useAtom(currentUserAtom)
+
+	const router = useRouter()
 
 	const handleSubmit = (data: Omit<symptomDetailsType, "id" | "owner_id">) => {
 		const updateQuery: symptomDetailsType = {
@@ -25,9 +28,13 @@ export default function EditSymptom(props: symptomDetailsType) {
 		return deleteItem("symptoms", props.id)
 	}
 
+	const handleBack = () => {
+		router.push(`/symptom/${props.id}`)
+	}
+
 	return (
 		<Flex direction="column" w="full">
-			<Header title="Edit Symptom" buttonName="None" itemId={props.id} />
+			<Header title="Edit Symptom" buttonName="None" itemId={props.id} onBack={handleBack} />
 			<SymptomForm buttonName="Save Changes" symptom={props} onSubmit={handleSubmit} onDelete={handleDelete} />
 		</Flex>
 	)

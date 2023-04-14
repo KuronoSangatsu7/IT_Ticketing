@@ -6,10 +6,13 @@ import { getItemData } from "@/lib/tickets"
 import { techDetailsType } from "@/types/techTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
+import { useRouter } from "next/router"
 
 export default function EditTech(props: techDetailsType) {
 
 	const [currentUser] = useAtom(currentUserAtom)
+
+	const router = useRouter()
 
 	const handleSubmit = (data: Omit<techDetailsType, "id" | "owner_id" | "assigned_tickets">) => {
 		const updateQuery: techDetailsType = {
@@ -26,9 +29,13 @@ export default function EditTech(props: techDetailsType) {
 		return deleteItem("techs", props.id)
 	}
 
+	const handleBack = () => {
+		router.push(`/tech/${props.id}`)
+	}
+
 	return (
 		<Flex direction="column" w="full">
-			<Header title="Edit Tech" buttonName="None" itemId={props.id} />
+			<Header title="Edit Tech" buttonName="None" itemId={props.id} onBack={handleBack} />
 			<TechForm buttonName="Save Changes" tech={props} onSubmit={handleSubmit} onDelete={handleDelete} />
 		</Flex>
 	)
