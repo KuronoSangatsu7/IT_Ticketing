@@ -75,7 +75,7 @@ export async function getItemData(
 		| Omit<techDetailsType, "id">
 
 	// When fetching techs, query tickets collection to get num of assigned tickets
-	if (collectionName == "techs") {
+	if (collectionName == "techs" && docData) {
 		const coll = collection(db, "tickets")
 		let techDetails = docData as Omit<techDetailsType, "id">
 		const q = query(

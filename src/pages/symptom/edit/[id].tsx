@@ -69,12 +69,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
 	const symptomData = await getItemData("symptoms", params.id)
-
+	
 	// Symptom does not exist
 	if (!symptomData.owner_id) {
 		return {
 			notFound: true,
-			revalidate: false,
+			revalidate: 5,
 		}
 	}
 

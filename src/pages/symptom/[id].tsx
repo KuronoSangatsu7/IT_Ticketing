@@ -84,7 +84,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 	if(!symptomData.owner_id){
         return{
             notFound: true,
-            revalidate: false
+            revalidate: 5
         }
     }
 
