@@ -7,6 +7,7 @@ export default function Symptom(symptomDetails: symptomDetailsType) {
 	return (
 		<>
 			<Link
+				aria-label={`Symptom ${symptomDetails.id}`}
 				as={NextLink}
 				href={`/symptom/${symptomDetails.id}`}
 				paddingY="15px"

@@ -20,6 +20,7 @@ export default function SideItem({
 
 	return router.pathname == pagePath ? (
 		<Link
+			aria-label={pageTitle}
 			as={NextLink}
 			href={pagePath}
 			bg="activeItem"
@@ -40,6 +41,7 @@ export default function SideItem({
 		</Link>
 	) : (
 		<Link
+			aria-label={pageTitle}
 			as={NextLink}
 			href={pagePath}
 			h="50px"

@@ -2,14 +2,12 @@ import { currentUserAtom, ticketFilterAtom } from "@/store/store"
 import { useAtom } from "jotai"
 import {
 	Avatar,
-	Link,
 	Menu,
 	MenuButton,
 	MenuGroup,
 	MenuItem,
 	MenuList,
 } from "@chakra-ui/react"
-import NextLink from "next/link"
 import { signInUser, signOutUser } from "@/lib/tickets"
 import useAuthSub from "@/hooks/use-auth-sub"
 import { useRouter } from "next/router"

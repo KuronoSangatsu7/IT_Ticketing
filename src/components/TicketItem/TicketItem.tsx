@@ -21,6 +21,7 @@ export default function Ticket(ticketDetails: ticketDetailsType) {
 	return (
 		<>
 			<Link
+				aria-label={`Symptom ${ticketDetails.id}`}
 				as={NextLink}
 				href={`/ticket/${ticketDetails.id}`}
 				paddingY="15px"

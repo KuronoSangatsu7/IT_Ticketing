@@ -7,6 +7,7 @@ export default function Tech(techDetails: techDetailsType) {
 	return (
 		<>
 			<Link
+				aria-label={`Symptom ${techDetails.id}`}
 				as={NextLink}
 				href={`/tech/${techDetails.id}`}
 				paddingY="15px"
