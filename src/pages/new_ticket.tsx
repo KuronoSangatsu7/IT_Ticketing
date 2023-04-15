@@ -29,7 +29,7 @@ export default function NewTicket() {
 	return (
 		<>
 			<Head>
-				<title>New Ticket</title>
+				<title>Add New Ticket | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Create a new ticket for IT department"
@@ -37,6 +37,18 @@ export default function NewTicket() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content="Add New Ticket | IT Ticketing"
+				/>
+				<meta
+					property="og:description"
+					content="Create a new ticket for IT department"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

@@ -46,7 +46,7 @@ export default function Symptoms() {
 	return (
 		<>
 			<Head>
-				<title>Symptoms</title>
+				<title>View Symptoms | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Manage your IT department's symptoms"
@@ -54,6 +54,18 @@ export default function Symptoms() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content="View Symptoms | IT Ticketing"
+				/>
+				<meta
+					property="og:description"
+					content="Manage your IT department's symptoms"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

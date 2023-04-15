@@ -29,14 +29,26 @@ export default function Tech(params: techDetailsType) {
 	return (
 		<>
 			<Head>
-				<title>Tech {params.full_name}</title>
+				<title>Tech {params.full_name} | IT Ticketing</title>
 				<meta
 					name="description"
-					content={`Technician ${params.id}, Name: ${params.full_name}, Department: ${params.department}`}
+					content={`Technician ${params.id}\n Name: ${params.full_name}\n Department: ${params.department}`}
 				/>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content={`Tech ${params.full_name} | IT Ticketing`}
+				/>
+				<meta
+					property="og:description"
+					content={`Technician ${params.id}\n Name: ${params.full_name}\n Department: ${params.department}`}
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

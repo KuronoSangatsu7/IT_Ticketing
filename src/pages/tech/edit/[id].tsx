@@ -60,7 +60,7 @@ export default function EditTech(props: techDetailsType) {
 	return (
 		<>
 			<Head>
-				<title>Edit Tech #{props.id}</title>
+				<title>Edit Tech #{props.id} | IT Ticketing</title>
 				<meta
 					name="description"
 					content={`Edit Technician No.${props.id} info`}
@@ -68,6 +68,18 @@ export default function EditTech(props: techDetailsType) {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content={`Edit Tech #${props.id} | IT Ticketing`}
+				/>
+				<meta
+					property="og:description"
+					content={`Edit Technician No.${props.id} info`}
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

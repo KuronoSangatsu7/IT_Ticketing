@@ -5,10 +5,10 @@ export default function Custom404() {
 	return (
 		<>
 			<Head>
-				<title>404</title>
+				<title>404 - Page Not Found | IT Ticketing</title>
 				<meta
 					name="description"
-					content="IT Ticketing - 404 - Page not found"
+					content="Page not found | IT Ticketing"
 				/>
 				<meta
 					name="viewport"

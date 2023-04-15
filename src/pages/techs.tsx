@@ -49,7 +49,7 @@ export default function Techs() {
 	return (
 		<>
 			<Head>
-				<title>Techs</title>
+				<title>View Techs | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Manage your IT department's technicians"
@@ -57,6 +57,15 @@ export default function Techs() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta property="og:title" content="View Techs | IT Ticketing" />
+				<meta
+					property="og:description"
+					content="Manage your IT department's technicians"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

@@ -28,14 +28,26 @@ export default function Symptom(params: symptomDetailsType) {
 	return (
 		<>
 			<Head>
-				<title>Symptom #{params.id}</title>
+				<title>Symptom #{params.id} | IT Ticketing</title>
 				<meta
 					name="description"
-					content={`Symptom No.${params.id}, Department: ${params.department}`}
+					content={`Symptom No.${params.id}\n Department: ${params.department}`}
 				/>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content={`Symptom #${params.id} | IT Ticketing`}
+				/>
+				<meta
+					property="og:description"
+					content={`Symptom No.${params.id}\n Department: ${params.department}`}
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

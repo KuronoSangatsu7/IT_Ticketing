@@ -31,7 +31,7 @@ export default function NewSymptom() {
 	return (
 		<>
 			<Head>
-				<title>New Symptom</title>
+				<title>Add New Symptom | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Create a new symptom for your issues"
@@ -39,6 +39,18 @@ export default function NewSymptom() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content="Add New Symptom | IT Ticketing"
+				/>
+				<meta
+					property="og:description"
+					content="Create a new symptom for your issues"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

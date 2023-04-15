@@ -68,7 +68,6 @@ export default function Header(props: {
 				{props.ticketFilter && (
 					<>
 						<Select
-							defaultValue="all-tickets"
 							value={currentTicketFilter}
 							onChange={(e) => handleFilterChange(e)}
 							w="200px"

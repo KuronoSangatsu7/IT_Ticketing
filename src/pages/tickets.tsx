@@ -77,7 +77,7 @@ export default function Tickets() {
 	return (
 		<>
 			<Head>
-				<title>Tickets</title>
+				<title>View Tickets | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Manage your IT department's tickets"
@@ -85,6 +85,18 @@ export default function Tickets() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content="View Tickets | IT Ticketing"
+				/>
+				<meta
+					property="og:description"
+					content="Manage your IT department's tickets"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

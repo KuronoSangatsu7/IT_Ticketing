@@ -59,7 +59,7 @@ export default function EditSymptom(props: symptomDetailsType) {
 	return (
 		<>
 			<Head>
-				<title>Edit Symptom #{props.id}</title>
+				<title>Edit Symptom #{props.id} | IT Ticketing</title>
 				<meta
 					name="description"
 					content={`Edit Symptom No.${props.id}`}
@@ -67,6 +67,18 @@ export default function EditSymptom(props: symptomDetailsType) {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content={`Edit Symptom #${props.id} | IT Ticketing`}
+				/>
+				<meta
+					property="og:description"
+					content={`Edit Symptom No.${props.id}`}
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

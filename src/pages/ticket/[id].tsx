@@ -34,14 +34,26 @@ export default function Ticket(params: ticketDetailsType) {
 	return (
 		<>
 			<Head>
-				<title>Ticket #{params.id}</title>
+				<title>Ticket #{params.id} | IT Ticketing</title>
 				<meta
 					name="description"
-					content={`Ticket No.${params.id}, Description: ${params.description}, Assigned Tech: ${params.assigned_tech}`}
+					content={`Ticket No.${params.id}\n Description: ${params.description}\n Assigned Tech: ${params.assigned_tech}`}
 				/>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content={`Ticket #${params.id} | IT Ticketing`}
+				/>
+				<meta
+					property="og:description"
+					content={`Ticket No.${params.id}\n Description: ${params.description}\n Assigned Tech: ${params.assigned_tech}`}
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

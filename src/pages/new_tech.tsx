@@ -32,7 +32,7 @@ export default function NewTech() {
 	return (
 		<>
 			<Head>
-				<title>New Tech</title>
+				<title>Add New Tech | IT Ticketing</title>
 				<meta
 					name="description"
 					content="Create a new technician profile"
@@ -40,6 +40,18 @@ export default function NewTech() {
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
+				/>
+				<meta
+					property="og:title"
+					content="Add New Tech | IT Ticketing"
+				/>
+				<meta
+					property="og:description"
+					content="Create a new technician profile"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
 

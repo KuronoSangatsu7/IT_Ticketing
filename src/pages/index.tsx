@@ -39,6 +39,15 @@ export default function Home() {
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
 				/>
+				<meta property="og:title" content="IT Ticketing" />
+				<meta
+					property="og:description"
+					content="Manage your all your IT department's needs on one simple, easy-to-use platform"
+				/>
+				<meta
+					property="og:image"
+					content="https://it-ticketing.vercel.app/it_department.png"
+				/>
 			</Head>
 
 			<Flex
