@@ -2,9 +2,10 @@ import Header from "@/components/Header"
 import { getAllCollectionItems, getItemData } from "@/lib/tickets"
 import { currentUserAtom } from "@/store/store"
 import { techDetailsType } from "@/types/techTypes"
-import { Flex, Box, useAccordion } from "@chakra-ui/react"
+import { Flex, Box } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function Tech(params: techDetailsType) {
 	const techFields = [
@@ -26,45 +27,59 @@ export default function Tech(params: techDetailsType) {
 	}
 
 	return (
-		<Flex direction="column" w="full">
-			<Header
-				title="Tech"
-				itemId={params.id}
-				buttonName={
-					currentUser
-						? currentUser.uid == params.owner_id
-							? "Edit Tech"
+		<>
+			<Head>
+				<title>Tech {params.full_name}</title>
+				<meta
+					name="description"
+					content={`Technician ${params.id}, Name: ${params.full_name}, Department: ${params.department}`}
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" w="full">
+				<Header
+					title="Tech"
+					itemId={params.id}
+					buttonName={
+						currentUser
+							? currentUser.uid == params.owner_id
+								? "Edit Tech"
+								: "None"
 							: "None"
-						: "None"
-				}
-				buttonIcon="Edit"
-				onClick={handleClick}
-				onBack={handleBack}
-			/>
-			<Flex
-				flexDirection="column"
-				w={{ base: "90%", lg: "40%" }}
-				gap="15px"
-				fontSize="lg"
-				alignSelf="center"
-				paddingY="20px"
-			>
-				{techFields.map((field) => (
-					<Flex flexDirection="column" key={field.fieldName}>
-						<Box
-							as="span"
-							fontWeight="medium"
-							fontSize="xs"
-							color="gray.500"
-							letterSpacing="tight"
-						>
-							{field.fieldName}
-						</Box>
-						{field.fieldData}
-					</Flex>
-				))}
+					}
+					buttonIcon="Edit"
+					onClick={handleClick}
+					onBack={handleBack}
+				/>
+				<Flex
+					flexDirection="column"
+					w={{ base: "90%", lg: "40%" }}
+					gap="15px"
+					fontSize="lg"
+					alignSelf="center"
+					paddingY="20px"
+				>
+					{techFields.map((field) => (
+						<Flex flexDirection="column" key={field.fieldName}>
+							<Box
+								as="span"
+								fontWeight="medium"
+								fontSize="xs"
+								color="gray.500"
+								letterSpacing="tight"
+							>
+								{field.fieldName}
+							</Box>
+							{field.fieldData}
+						</Flex>
+					))}
+				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	)
 }
 

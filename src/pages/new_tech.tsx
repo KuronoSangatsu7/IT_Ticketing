@@ -6,6 +6,7 @@ import { currentUserAtom } from "@/store/store"
 import { techDetailsType } from "@/types/techTypes"
 import { addItem } from "@/lib/tickets"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function NewTech() {
 	const [currentUser] = useAtom(currentUserAtom)
@@ -29,9 +30,27 @@ export default function NewTech() {
 	}
 
 	return (
-		<Flex direction="column" w="full">
-			<Header title="New Tech" buttonName="None" onBack={handleBack} />
-			<TechForm onSubmit={handleSubmit} />
-		</Flex>
+		<>
+			<Head>
+				<title>New Tech</title>
+				<meta
+					name="description"
+					content="Create a new technician profile"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" w="full">
+				<Header
+					title="New Tech"
+					buttonName="None"
+					onBack={handleBack}
+				/>
+				<TechForm onSubmit={handleSubmit} />
+			</Flex>
+		</>
 	)
 }

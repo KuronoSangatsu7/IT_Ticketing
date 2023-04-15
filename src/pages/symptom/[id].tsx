@@ -5,6 +5,7 @@ import { symptomDetailsType } from "@/types/symptomTypes"
 import { Flex, Box } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function Symptom(params: symptomDetailsType) {
 	const symptomFields = [
@@ -25,46 +26,60 @@ export default function Symptom(params: symptomDetailsType) {
 	}
 
 	return (
-		<Flex direction="column" w="full">
-			{}
-			<Header
-				title="Symptom"
-				itemId={params.id}
-				buttonName={
-					currentUser
-						? currentUser.uid == params.owner_id
-							? "Edit Symptom"
+		<>
+			<Head>
+				<title>Symptom #{params.id}</title>
+				<meta
+					name="description"
+					content={`Symptom No.${params.id}, Department: ${params.department}`}
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" w="full">
+				{}
+				<Header
+					title="Symptom"
+					itemId={params.id}
+					buttonName={
+						currentUser
+							? currentUser.uid == params.owner_id
+								? "Edit Symptom"
+								: "None"
 							: "None"
-						: "None"
-				}
-				buttonIcon="Edit"
-				onClick={handleClick}
-				onBack={handleBack}
-			/>
-			<Flex
-				flexDirection="column"
-				w={{ base: "90%", lg: "40%" }}
-				gap="15px"
-				fontSize="lg"
-				alignSelf="center"
-				paddingY="20px"
-			>
-				{symptomFields.map((field) => (
-					<Flex flexDirection="column" key={field.fieldName}>
-						<Box
-							as="span"
-							fontWeight="medium"
-							fontSize="xs"
-							color="gray.500"
-							letterSpacing="tight"
-						>
-							{field.fieldName}
-						</Box>
-						{field.fieldData}
-					</Flex>
-				))}
+					}
+					buttonIcon="Edit"
+					onClick={handleClick}
+					onBack={handleBack}
+				/>
+				<Flex
+					flexDirection="column"
+					w={{ base: "90%", lg: "40%" }}
+					gap="15px"
+					fontSize="lg"
+					alignSelf="center"
+					paddingY="20px"
+				>
+					{symptomFields.map((field) => (
+						<Flex flexDirection="column" key={field.fieldName}>
+							<Box
+								as="span"
+								fontWeight="medium"
+								fontSize="xs"
+								color="gray.500"
+								letterSpacing="tight"
+							>
+								{field.fieldName}
+							</Box>
+							{field.fieldData}
+						</Flex>
+					))}
+				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	)
 }
 

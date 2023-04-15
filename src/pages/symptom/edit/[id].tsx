@@ -8,6 +8,7 @@ import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
 import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
+import Head from "next/head"
 
 export default function EditSymptom(props: symptomDetailsType) {
 	const [currentUser] = useAtom(currentUserAtom)
@@ -55,7 +56,23 @@ export default function EditSymptom(props: symptomDetailsType) {
 		if (currentUser.uid != props.owner_id)
 			content = <InsufficientPermissionMessage />
 
-	return <>{content}</>
+	return (
+		<>
+			<Head>
+				<title>Edit Symptom #{props.id}</title>
+				<meta
+					name="description"
+					content={`Edit Symptom No.${props.id}`}
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			{content}
+		</>
+	)
 }
 
 export async function getStaticPaths() {

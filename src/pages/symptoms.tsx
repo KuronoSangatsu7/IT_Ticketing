@@ -4,9 +4,9 @@ import { Flex } from "@chakra-ui/react"
 import SymptomLabel from "@/components/SymptomItem/SymptomLabel"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { useRouter } from "next/router"
-import useFirebaseSub from "@/hooks/use-firebase-sub"
 import { useAtom } from "jotai"
 import { symptomsAtom } from "@/store/store"
+import Head from "next/head"
 
 // TODO: remove test data
 // const symptoms: symptomDetailsType[] = Object.values({
@@ -44,15 +44,29 @@ export default function Symptoms() {
 		))
 
 	return (
-		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header
-				title="Symptoms"
-				buttonName="New Symptom"
-				collectionName="symptoms"
-				onClick={handleClick}
-			/>
-			<SymptomLabel />
-			{pageContent}
-		</Flex>
+		<>
+			<Head>
+				<title>Symptoms</title>
+				<meta
+					name="description"
+					content="Manage your IT department's symptoms"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" h="full" w="full" borderRadius="xl">
+				<Header
+					title="Symptoms"
+					buttonName="New Symptom"
+					collectionName="symptoms"
+					onClick={handleClick}
+				/>
+				<SymptomLabel />
+				{pageContent}
+			</Flex>
+		</>
 	)
 }

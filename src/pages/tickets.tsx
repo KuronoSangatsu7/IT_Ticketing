@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { useAtom } from "jotai"
 import { currentUserAtom, ticketFilterAtom, ticketsAtom } from "@/store/store"
+import Head from "next/head"
 
 // TODO: remove test data
 // const _tickets: ticketDetailsType[] = Object.values({
@@ -74,16 +75,30 @@ export default function Tickets() {
 		))
 
 	return (
-		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header
-				title="Tickets"
-				buttonName="New Ticket"
-				collectionName="tickets"
-				ticketFilter={true}
-				onClick={handleClick}
-			/>
-			<TicketLabel />
-			{pageContent}
-		</Flex>
+		<>
+			<Head>
+				<title>Tickets</title>
+				<meta
+					name="description"
+					content="Manage your IT department's tickets"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" h="full" w="full" borderRadius="xl">
+				<Header
+					title="Tickets"
+					buttonName="New Ticket"
+					collectionName="tickets"
+					ticketFilter={true}
+					onClick={handleClick}
+				/>
+				<TicketLabel />
+				{pageContent}
+			</Flex>
+		</>
 	)
 }

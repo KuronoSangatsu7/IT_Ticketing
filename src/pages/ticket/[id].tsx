@@ -6,6 +6,7 @@ import { CheckIcon, TimeIcon } from "@chakra-ui/icons"
 import { Flex, Box, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function Ticket(params: ticketDetailsType) {
 	const ticketFields = [
@@ -31,78 +32,57 @@ export default function Ticket(params: ticketDetailsType) {
 	}
 
 	return (
-		<Flex direction="column" w="full">
-			<Header
-				title="Ticket"
-				itemId={params.id}
-				buttonName={
-					currentUser
-						? currentUser.uid == params.owner_id
-							? "Edit Ticket"
-							: "None"
-						: "None"
-				}
-				buttonIcon="Edit"
-				onClick={handleClick}
-				onBack={handleBack}
-			/>
-			<Flex
-				flexDirection="column"
-				w={{ base: "90%", lg: "40%" }}
-				gap="15px"
-				fontSize="lg"
-				alignSelf="center"
-				paddingY="20px"
-			>
-				{ticketFields.map((field) => (
-					<Flex flexDirection="column" key={field.fieldName}>
-						<Box
-							as="span"
-							fontWeight="medium"
-							fontSize="xs"
-							color="gray.500"
-							letterSpacing="tight"
-						>
-							{field.fieldName}
-						</Box>
-						{field.fieldData}
-					</Flex>
-				))}
+		<>
+			<Head>
+				<title>Ticket #{params.id}</title>
+				<meta
+					name="description"
+					content={`Ticket No.${params.id}, Description: ${params.description}, Assigned Tech: ${params.assigned_tech}`}
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
 
-				<Flex flexDirection="column">
-					<Box
-						as="span"
-						fontWeight="medium"
-						fontSize="xs"
-						color="gray.500"
-						letterSpacing="tight"
-					>
-						Status
-					</Box>
-					{params.resolved ? (
-						<Tag
-							size="lg"
-							colorScheme="green"
-							borderRadius="full"
-							justifyContent="center"
-							w="50"
-						>
-							<TagLeftIcon boxSize="12px" as={CheckIcon} />
-							<TagLabel>Resolved</TagLabel>
-						</Tag>
-					) : (
-						<Tag
-							size="lg"
-							px="4"
-							colorScheme="orange"
-							borderRadius="full"
-							justifyContent="center"
-							w="40"
-						>
-							<TagLeftIcon boxSize="12px" as={TimeIcon} />
-							<TagLabel>Pending</TagLabel>
-						</Tag>
-					)}
+			<Flex direction="column" w="full">
+				<Header
+					title="Ticket"
+					itemId={params.id}
+					buttonName={
+						currentUser
+							? currentUser.uid == params.owner_id
+								? "Edit Ticket"
+								: "None"
+							: "None"
+					}
+					buttonIcon="Edit"
+					onClick={handleClick}
+					onBack={handleBack}
+				/>
+				<Flex
+					flexDirection="column"
+					w={{ base: "90%", lg: "40%" }}
+					gap="15px"
+					fontSize="lg"
+					alignSelf="center"
+					paddingY="20px"
+				>
+					{ticketFields.map((field) => (
+						<Flex flexDirection="column" key={field.fieldName}>
+							<Box
+								as="span"
+								fontWeight="medium"
+								fontSize="xs"
+								color="gray.500"
+								letterSpacing="tight"
+							>
+								{field.fieldName}
+							</Box>
+							{field.fieldData}
+						</Flex>
+					))}
+
 					<Flex flexDirection="column">
 						<Box
 							as="span"
@@ -111,13 +91,48 @@ export default function Ticket(params: ticketDetailsType) {
 							color="gray.500"
 							letterSpacing="tight"
 						>
-							Notes
+							Status
 						</Box>
-						{params.notes}
+						{params.resolved ? (
+							<Tag
+								size="lg"
+								colorScheme="green"
+								borderRadius="full"
+								justifyContent="center"
+								w="50"
+							>
+								<TagLeftIcon boxSize="12px" as={CheckIcon} />
+								<TagLabel>Resolved</TagLabel>
+							</Tag>
+						) : (
+							<Tag
+								size="lg"
+								px="4"
+								colorScheme="orange"
+								borderRadius="full"
+								justifyContent="center"
+								w="40"
+							>
+								<TagLeftIcon boxSize="12px" as={TimeIcon} />
+								<TagLabel>Pending</TagLabel>
+							</Tag>
+						)}
+						<Flex flexDirection="column">
+							<Box
+								as="span"
+								fontWeight="medium"
+								fontSize="xs"
+								color="gray.500"
+								letterSpacing="tight"
+							>
+								Notes
+							</Box>
+							{params.notes}
+						</Flex>
 					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	)
 }
 

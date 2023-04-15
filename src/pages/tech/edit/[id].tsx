@@ -8,6 +8,7 @@ import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
 import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
+import Head from "next/head"
 
 export default function EditTech(props: techDetailsType) {
 	const [currentUser] = useAtom(currentUserAtom)
@@ -56,7 +57,23 @@ export default function EditTech(props: techDetailsType) {
 		if (currentUser.uid != props.owner_id)
 			content = <InsufficientPermissionMessage />
 
-	return <>{content}</>
+	return (
+		<>
+			<Head>
+				<title>Edit Tech #{props.id}</title>
+				<meta
+					name="description"
+					content={`Edit Technician No.${props.id} info`}
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			{content}
+		</>
+	)
 }
 
 export async function getStaticPaths() {

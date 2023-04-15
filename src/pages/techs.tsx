@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner"
 import { useRouter } from "next/router"
 import { useAtom } from "jotai"
 import { techsAtom } from "@/store/store"
-import useFirebaseSub from "@/hooks/use-firebase-sub"
+import Head from "next/head"
 
 // TODO: remove test data
 // const techs: techDetailsType[] = Object.values({
@@ -47,15 +47,29 @@ export default function Techs() {
 		))
 
 	return (
-		<Flex direction="column" h="full" w="full" borderRadius="xl">
-			<Header
-				title="Techs"
-				buttonName="New Tech"
-				collectionName="techs"
-				onClick={handleClick}
-			/>
-			<TechLabel />
-			{pageContent}
-		</Flex>
+		<>
+			<Head>
+				<title>Techs</title>
+				<meta
+					name="description"
+					content="Manage your IT department's technicians"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" h="full" w="full" borderRadius="xl">
+				<Header
+					title="Techs"
+					buttonName="New Tech"
+					collectionName="techs"
+					onClick={handleClick}
+				/>
+				<TechLabel />
+				{pageContent}
+			</Flex>
+		</>
 	)
 }

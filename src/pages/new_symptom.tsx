@@ -6,6 +6,7 @@ import { currentUserAtom } from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
 import { addItem } from "@/lib/tickets"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function NewSymptom() {
 	const [currentUser] = useAtom(currentUserAtom)
@@ -28,9 +29,27 @@ export default function NewSymptom() {
 	}
 
 	return (
-		<Flex direction="column" w="full">
-			<Header title="New Symptom" buttonName="None" onBack={handleBack} />
-			<SymptomForm onSubmit={handleSubmit} />
-		</Flex>
+		<>
+			<Head>
+				<title>New Symptom</title>
+				<meta
+					name="description"
+					content="Create a new symptom for your issues"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+			</Head>
+
+			<Flex direction="column" w="full">
+				<Header
+					title="New Symptom"
+					buttonName="None"
+					onBack={handleBack}
+				/>
+				<SymptomForm onSubmit={handleSubmit} />
+			</Flex>
+		</>
 	)
 }

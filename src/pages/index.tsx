@@ -33,11 +33,11 @@ export default function Home() {
 				<title>IT Ticketing</title>
 				<meta
 					name="description"
-					content="Managing IT department tickets"
+					content="Manage your all your IT department's needs on one simple, easy-to-use platform"
 				/>
 				<meta
 					name="viewport"
-					content="width=device-width, initial-scale=1"
+					content="width=device-width, initial-scale=1.0"
 				/>
 			</Head>
 
