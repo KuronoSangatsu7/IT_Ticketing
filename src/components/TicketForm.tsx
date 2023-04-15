@@ -135,79 +135,83 @@ export default function TicketForm(props: {
 				</FormErrorMessage>
 			</FormControl>
 
-			<FormControl isInvalid={errors.first_name && true}>
-				<FormItemLabel htmlFor="first_name" text="First Name" />
-				<Input
-					id="first_name"
-					placeholder="First Name"
-					{...register("first_name", {
-						required: "This is required",
-						minLength: {
-							value: 2,
-							message: "Minimum length should be 2",
-						},
-					})}
-				/>
-				<FormErrorMessage>
-					{errors.first_name && errors.first_name.message}
-				</FormErrorMessage>
-			</FormControl>
+			<Box display="flex" gap="10px">
+				<FormControl isInvalid={errors.first_name && true}>
+					<FormItemLabel htmlFor="first_name" text="First Name" />
+					<Input
+						id="first_name"
+						placeholder="First Name"
+						{...register("first_name", {
+							required: "This is required",
+							minLength: {
+								value: 2,
+								message: "Minimum length should be 2",
+							},
+						})}
+					/>
+					<FormErrorMessage>
+						{errors.first_name && errors.first_name.message}
+					</FormErrorMessage>
+				</FormControl>
 
-			<FormControl isInvalid={errors.last_name && true}>
-				<FormItemLabel htmlFor="last_name" text="Last Name" />
-				<Input
-					id="last_name"
-					placeholder="Last Name"
-					{...register("last_name", {
-						required: "This is required",
-						minLength: {
-							value: 2,
-							message: "Minimum length should be 2",
-						},
-					})}
-				/>
-				<FormErrorMessage>
-					{errors.last_name && errors.last_name.message}
-				</FormErrorMessage>
-			</FormControl>
+				<FormControl isInvalid={errors.last_name && true}>
+					<FormItemLabel htmlFor="last_name" text="Last Name" />
+					<Input
+						id="last_name"
+						placeholder="Last Name"
+						{...register("last_name", {
+							required: "This is required",
+							minLength: {
+								value: 2,
+								message: "Minimum length should be 2",
+							},
+						})}
+					/>
+					<FormErrorMessage>
+						{errors.last_name && errors.last_name.message}
+					</FormErrorMessage>
+				</FormControl>
+			</Box>
 
-			<FormControl isInvalid={errors.employee_id && true}>
-				<FormItemLabel htmlFor="employee_id" text="Employee ID" />
-				<Input
-					id="employee_id"
-					placeholder="Employee ID"
-					{...register("employee_id", {
-						required: "This is required",
-						pattern: {
-							value: /^[0-9]{5}$/,
-							message:
-								"Please enter your employee ID (5 digit number)",
-						},
-					})}
-				/>
-				<FormErrorMessage>
-					{errors.employee_id && errors.employee_id.message}
-				</FormErrorMessage>
-			</FormControl>
+			<Box display="flex" gap="10px">
+				<FormControl isInvalid={errors.employee_id && true} w="30%">
+					<FormItemLabel htmlFor="employee_id" text="Employee ID" />
+					<Input
+						id="employee_id"
+						placeholder="Employee ID"
+						{...register("employee_id", {
+							required: "This is required",
+							pattern: {
+								value: /^[0-9]{5}$/,
+								message:
+									"Please enter your employee ID (5 digit number)",
+							},
+						})}
+					/>
+					<FormErrorMessage>
+						{errors.employee_id && errors.employee_id.message}
+					</FormErrorMessage>
+				</FormControl>
 
-			<FormControl isInvalid={errors.email && true}>
-				<FormItemLabel htmlFor="email" text="Email" />
-				<Input
-					type="text"
-					id="email"
-					placeholder="email@fakeitcompany.com"
-					{...register("email", {
-						required: "This is required",
-						pattern: {
-							value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-							message: "Please enter a valid company email",
-						},
-					})}
-				/>
-				<FormErrorMessage>
-					{errors.email && errors.email.message}
-				</FormErrorMessage>
-			</FormControl>
+				<FormControl isInvalid={errors.email && true}>
+					<FormItemLabel htmlFor="email" text="Email" />
+					<Input
+						type="text"
+						id="email"
+						placeholder="email@fakeitcompany.com"
+						{...register("email", {
+							required: "This is required",
+							pattern: {
+								value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+								message: "Please enter a valid company email",
+							},
+						})}
+					/>
+					<FormErrorMessage>
+						{errors.email && errors.email.message}
+					</FormErrorMessage>
+				</FormControl>
+			</Box>
 
 			<FormControl isInvalid={errors.symptom && true}>
 				<FormItemLabel htmlFor="symptom" text="Symptom" />
