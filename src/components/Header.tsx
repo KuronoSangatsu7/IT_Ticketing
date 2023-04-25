@@ -47,7 +47,7 @@ export default function Header(props: {
 				{props.onBack && (
 					<IconButton
 						h="50px"
-						aria-label="Search database"
+						aria-label="back"
 						icon={<ArrowBackIcon />}
 						onClick={() => props.onBack && props.onBack()}
 					/>

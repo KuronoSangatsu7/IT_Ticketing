@@ -2,5 +2,5 @@
 	"extends": ["next/core-web-vitals", "prettier"],
 	"plugins": ["prettier"],
 	"ignorePatterns": ["node_modules/", ".next"],
-	"rules": { "prettier/prettier": ["warn"] }
+	"rules": { "prettier/prettier": ["error"] }
 }

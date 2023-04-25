@@ -11,6 +11,8 @@ import {
 	HiOutlineUserGroup,
 	HiChartSquareBar,
 	HiOutlineChartSquareBar,
+	HiOutlineInformationCircle,
+	HiInformationCircle,
 } from "react-icons/hi"
 
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2"
@@ -46,6 +48,12 @@ const sideItems = [
 		pagePath: "/analytics",
 		inactiveIcon: HiOutlineChartSquareBar,
 		activeIcon: HiChartSquareBar,
+	},
+	{
+		pageTitle: "About",
+		pagePath: "/about",
+		inactiveIcon: HiOutlineInformationCircle,
+		activeIcon: HiInformationCircle,
 	},
 ]
 
