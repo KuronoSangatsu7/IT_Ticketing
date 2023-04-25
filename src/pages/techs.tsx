@@ -1,30 +1,12 @@
-import Tech from "@/components/TechItem/TechItem"
+import Tech from "@/components/Tech/TechItem/TechItem"
 import { Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
-import TechLabel from "@/components/TechItem/TechLabel"
-import LoadingSpinner from "@/components/LoadingSpinner"
+import Header from "@/components/UI/Header"
+import TechLabel from "@/components/Tech/TechItem/TechLabel"
+import LoadingSpinner from "@/components/UI/LoadingSpinner"
 import { useRouter } from "next/router"
 import { useAtom } from "jotai"
 import { techsAtom } from "@/store/store"
 import Head from "next/head"
-
-// TODO: remove test data
-// const techs: techDetailsType[] = Object.values({
-// 	"1": {
-// 		full_name: "Shelley Ginder",
-// 		department: "General Issues",
-// 		assigned_tickets: 5,
-// 		email: "shelley.ginder@fakeitcompany.com",
-// 		id: "1",
-// 	},
-// 	"15": {
-// 		full_name: "Justin Sample",
-// 		department: "Network",
-// 		assigned_tickets: 3,
-// 		email: "justin@sample.com",
-// 		id: "15",
-// 	},
-// })
 
 export default function Techs() {
 	const [techs] = useAtom(techsAtom)

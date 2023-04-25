@@ -50,18 +50,6 @@ export async function getAllCollectionItems(
 	return queryAnswer
 }
 
-// export async function getAllTicketIds() {
-// 	const db = getFirestore(app)
-
-// 	const ticketsColl = collection(db, "tickets")
-// 	const ticketsSnapshot = await getDocs(ticketsColl)
-// 	const ticketIdList = ticketsSnapshot.docs.map((doc) => {
-// 		return { params: { id: doc.id } }
-// 	})
-
-// 	return ticketIdList
-// }
-
 export async function getItemData(
 	collectionName: "tickets" | "symptoms" | "techs" | "departments",
 	id: string
@@ -149,25 +137,6 @@ export async function signInUser() {
 	auth.languageCode = "it"
 
 	return signInWithPopup(auth, provider)
-
-	// .then((result) => {
-	// 	// This gives you a Google Access Token. You can use it to access the Google API.
-	// 	const credential = GoogleAuthProvider.credentialFromResult(result);
-	// 	const token = credential.accessToken;
-	// 	// The signed-in user info.
-	// 	const user = result.user;
-	// 	// IdP data available using getAdditionalUserInfo(result)
-	// 	// ...
-	// }).catch((error) => {
-	// 	// Handle Errors here.
-	// 	const errorCode = error.code;
-	// 	const errorMessage = error.message;
-	// 	// The email of the user's account used.
-	// 	const email = error.customData.email;
-	// 	// The AuthCredential type that was used.
-	// 	const credential = GoogleAuthProvider.credentialFromError(error);
-	// 	// ...
-	// });
 }
 
 export async function signOutUser() {
@@ -175,15 +144,3 @@ export async function signOutUser() {
 
 	return signOut(auth)
 }
-
-// export async function getTicketData(id: string) {
-// 	const db = getFirestore(app)
-// 	const docRef = doc(db, "tickets", id)
-// 	const docSnap = await getDoc(docRef)
-// 	const docData = docSnap.data()
-
-// 	return {
-// 		id: id,
-// 		...docData,
-// 	}
-// }

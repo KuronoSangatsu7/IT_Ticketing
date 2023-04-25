@@ -3,8 +3,8 @@ import { Alert, AlertIcon, Grid, GridItem, Portal } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import LoadingSpinner from "./LoadingSpinner"
-import SideBar from "./SideBar/SideBar"
-import SignInMessage from "./SignInMessage"
+import SideBar from "../SideBar/SideBar"
+import SignInMessage from "../Messages/SignInMessage"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	const [currentUser] = useAtom(currentUserAtom)

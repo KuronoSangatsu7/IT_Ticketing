@@ -1,13 +1,17 @@
 import { Button, Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
-import TicketForm from "@/components/TicketForm"
-import { deleteItem, getAllCollectionItems, updateItem } from "@/lib/tickets"
-import { getItemData } from "@/lib/tickets"
+import Header from "@/components/UI/Header"
+import TicketForm from "@/components/Ticket/TicketForm/TicketForm"
+import {
+	deleteItem,
+	getAllCollectionItems,
+	updateItem,
+	getItemData,
+} from "@/lib/firebaseComms"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
-import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
+import InsufficientPermissionMessage from "@/components/Messages/InsufficientPermissionMessage"
 import Head from "next/head"
 
 export default function EditTicket(props: ticketDetailsType) {

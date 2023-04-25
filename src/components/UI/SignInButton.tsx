@@ -1,4 +1,4 @@
-import { signInUser } from "@/lib/tickets"
+import { signInUser } from "@/lib/firebaseComms"
 import { Button, Box } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc"
 

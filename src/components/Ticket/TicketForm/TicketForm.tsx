@@ -27,7 +27,7 @@ import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
-import FormItemLabel from "./FormItemLabel"
+import FormItemLabel from "../../UI/FormItemLabel"
 
 type Inputs = Omit<ticketDetailsType, "id" | "owner_id">
 

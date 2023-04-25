@@ -8,7 +8,7 @@ import {
 	MenuItem,
 	MenuList,
 } from "@chakra-ui/react"
-import { signInUser, signOutUser } from "@/lib/tickets"
+import { signInUser, signOutUser } from "@/lib/firebaseComms"
 import useAuthSub from "@/hooks/use-auth-sub"
 import { useRouter } from "next/router"
 

@@ -26,7 +26,7 @@ export default function Analytics() {
 					content="https://it-ticketing.vercel.app/it_department.png"
 				/>
 			</Head>
-			Analytics
+			Soon!
 		</>
 	)
 }
