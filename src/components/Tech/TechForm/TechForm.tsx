@@ -1,6 +1,6 @@
 import useAlert from "@/hooks/use-alert"
 import { departmentsAtom } from "@/store/store"
-import { type symptomDetailsType } from "@/types/symptomTypes"
+import { type techDetailsType } from "@/types/techTypes"
 import {
 	Box,
 	FormControl,
@@ -8,27 +8,28 @@ import {
 	Button,
 	Input,
 	Select,
+	useDisclosure,
 	AlertDialog,
 	AlertDialogOverlay,
 	AlertDialogContent,
 	AlertDialogHeader,
 	AlertDialogBody,
 	AlertDialogFooter,
-	useDisclosure,
 } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
-import FormItemLabel from "./FormItemLabel"
+import FormItemLabel from "../../UI/FormItemLabel"
 
 type Inputs = {
-	name: string
+	full_name: string
+	email: string
 	department: string
 }
 
-export default function SymptomForm(props: {
-	symptom?: symptomDetailsType
+export default function TechForm(props: {
+	tech?: techDetailsType
 	buttonName?: string
 	onSubmit: (data: Inputs) => Promise<void>
 	onDelete?: () => Promise<void>
@@ -40,8 +41,9 @@ export default function SymptomForm(props: {
 		formState: { errors, isSubmitting },
 	} = useForm<Inputs>({
 		defaultValues: {
-			name: props.symptom ? props.symptom.name : "",
-			department: props.symptom ? props.symptom.department : "",
+			full_name: props.tech ? props.tech.full_name : "",
+			email: props.tech ? props.tech.email : "",
+			department: props.tech ? props.tech.department : "",
 		},
 	})
 
@@ -58,9 +60,9 @@ export default function SymptomForm(props: {
 			.then(() => {
 				showAlert({
 					status: "success",
-					text: "Symptom updated successfully",
+					text: "Tech info updated successfully",
 				})
-				router.push("/symptoms")
+				router.push("/techs")
 			})
 			.catch((e) =>
 				showAlert({
@@ -77,9 +79,9 @@ export default function SymptomForm(props: {
 				.then(() => {
 					showAlert({
 						status: "success",
-						text: "Symptom deleted successfully",
+						text: "Tech info deleted successfully",
 					})
-					router.push("/symptoms")
+					router.push("/techs")
 				})
 				.catch((e) =>
 					showAlert({
@@ -101,21 +103,40 @@ export default function SymptomForm(props: {
 			alignSelf="center"
 			paddingY="20px"
 		>
-			<FormControl isInvalid={errors.name && true}>
-				<FormItemLabel htmlFor="name" text="Symptom Name" />
+			<FormControl isInvalid={errors.full_name && true}>
+				<FormItemLabel htmlFor="full_name" text="Tech Full Name" />
 				<Input
-					id="name"
-					placeholder="Computer wont turn on"
-					{...register("name", {
+					id="full_name"
+					placeholder="Justin Sample"
+					{...register("full_name", {
 						required: "This is required",
-						minLength: {
-							value: 5,
-							message: "Minimum length should be 5",
+						pattern: {
+							value: /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/,
+							message:
+								"Please use the format *<First Name> <Last Name>* each of which should be at least 2 characters.",
 						},
 					})}
 				/>
 				<FormErrorMessage>
-					{errors.name && errors.name.message}
+					{errors.full_name && errors.full_name.message}
+				</FormErrorMessage>
+			</FormControl>
+
+			<FormControl isInvalid={errors.email && true}>
+				<FormItemLabel htmlFor="email" text="Email" />
+				<Input
+					id="email"
+					placeholder="email@fakeitcompany.com"
+					{...register("email", {
+						required: "This is required",
+						pattern: {
+							value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+							message: "Please use a valid company email.",
+						},
+					})}
+				/>
+				<FormErrorMessage>
+					{errors.email && errors.email.message}
 				</FormErrorMessage>
 			</FormControl>
 
@@ -151,16 +172,26 @@ export default function SymptomForm(props: {
 				</FormErrorMessage>
 			</FormControl>
 
+			<FormControl>
+				<FormItemLabel
+					htmlFor="assigned_tickets"
+					text="Assigned Tickets"
+				/>
+				<Box fontWeight="bold">
+					{props.tech ? props.tech.assigned_tickets : 0}
+				</Box>
+			</FormControl>
+
 			<Button colorScheme="teal" isLoading={isSubmitting} type="submit">
-				{props.buttonName ? props.buttonName : "Add Symptom"}
+				{props.buttonName ? props.buttonName : "Add Tech"}
 			</Button>
 
 			<Button
-				display={props.symptom ? "block" : "none"}
+				display={props.tech ? "block" : "none"}
 				colorScheme="red"
 				onClick={onOpen}
 			>
-				Remove Symptom
+				Remove Tech
 			</Button>
 
 			<AlertDialog
@@ -171,11 +202,11 @@ export default function SymptomForm(props: {
 				<AlertDialogOverlay>
 					<AlertDialogContent>
 						<AlertDialogHeader fontSize="lg" fontWeight="bold">
-							Delete Symptom
+							Delete Tech
 						</AlertDialogHeader>
 
 						<AlertDialogBody>
-							Are you sure you want to delete this symptom? You
+							Are you sure you want to delete this tech? You
 							cannot undo this action afterwards.
 						</AlertDialogBody>
 

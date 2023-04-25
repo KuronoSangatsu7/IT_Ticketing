@@ -1,10 +1,10 @@
-import TechForm from "@/components/TechForm"
+import TechForm from "@/components/Tech/TechForm/TechForm"
 import { Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
+import Header from "@/components/UI/Header"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { techDetailsType } from "@/types/techTypes"
-import { addItem } from "@/lib/tickets"
+import { addItem } from "@/lib/firebaseComms"
 import { useRouter } from "next/router"
 import Head from "next/head"
 

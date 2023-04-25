@@ -1,5 +1,5 @@
-import LoadingSpinner from "@/components/LoadingSpinner"
-import SignInButton from "@/components/SignInButton"
+import LoadingSpinner from "@/components/UI/LoadingSpinner"
+import SignInButton from "@/components/UI/SignInButton"
 import { currentUserAtom } from "@/store/store"
 import { Box, Flex } from "@chakra-ui/react"
 import { useAtom } from "jotai"

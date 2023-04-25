@@ -1,13 +1,17 @@
 import { Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
-import { deleteItem, getAllCollectionItems, updateItem } from "@/lib/tickets"
-import { getItemData } from "@/lib/tickets"
+import Header from "@/components/UI/Header"
+import {
+	deleteItem,
+	getAllCollectionItems,
+	updateItem,
+	getItemData,
+} from "@/lib/firebaseComms"
 import { symptomDetailsType } from "@/types/symptomTypes"
-import SymptomForm from "@/components/SymptomForm"
+import SymptomForm from "@/components/Symptom/SymptomForm/SymptomForm"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { useRouter } from "next/router"
-import InsufficientPermissionMessage from "@/components/InsufficientPermissionMessage"
+import InsufficientPermissionMessage from "@/components/Messages/InsufficientPermissionMessage"
 import Head from "next/head"
 
 export default function EditSymptom(props: symptomDetailsType) {

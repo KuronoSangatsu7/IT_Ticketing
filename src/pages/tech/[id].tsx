@@ -1,5 +1,5 @@
-import Header from "@/components/Header"
-import { getAllCollectionItems, getItemData } from "@/lib/tickets"
+import Header from "@/components/UI/Header"
+import { getAllCollectionItems, getItemData } from "@/lib/firebaseComms"
 import { currentUserAtom } from "@/store/store"
 import { techDetailsType } from "@/types/techTypes"
 import { Flex, Box } from "@chakra-ui/react"

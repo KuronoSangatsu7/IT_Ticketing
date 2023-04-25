@@ -1,10 +1,10 @@
-import SymptomForm from "@/components/SymptomForm"
+import SymptomForm from "@/components/Symptom/SymptomForm/SymptomForm"
 import { Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
+import Header from "@/components/UI/Header"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
 import { symptomDetailsType } from "@/types/symptomTypes"
-import { addItem } from "@/lib/tickets"
+import { addItem } from "@/lib/firebaseComms"
 import { useRouter } from "next/router"
 import Head from "next/head"
 

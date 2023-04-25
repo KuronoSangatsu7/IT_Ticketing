@@ -1,27 +1,12 @@
-import Symptom from "@/components/SymptomItem/SymptomItem"
-import Header from "@/components/Header"
+import Symptom from "@/components/Symptom/SymptomItem/SymptomItem"
+import Header from "@/components/UI/Header"
 import { Flex } from "@chakra-ui/react"
-import SymptomLabel from "@/components/SymptomItem/SymptomLabel"
-import LoadingSpinner from "@/components/LoadingSpinner"
+import SymptomLabel from "@/components/Symptom/SymptomItem/SymptomLabel"
+import LoadingSpinner from "@/components/UI/LoadingSpinner"
 import { useRouter } from "next/router"
 import { useAtom } from "jotai"
 import { symptomsAtom } from "@/store/store"
 import Head from "next/head"
-
-// TODO: remove test data
-// const symptoms: symptomDetailsType[] = Object.values({
-// 	"1": {
-// 		symptom: "Keyboard or mouse issues",
-// 		department: "General Issues",
-// 		id: "1",
-// 	},
-
-// 	"7": {
-// 		symptom: "Cannot connect to the internet",
-// 		department: "Network",
-// 		id: "7",
-// 	},
-// })
 
 export default function Symptoms() {
 	const [symptoms] = useAtom(symptomsAtom)

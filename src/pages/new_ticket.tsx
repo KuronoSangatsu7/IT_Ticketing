@@ -1,10 +1,10 @@
-import TicketForm from "@/components/TicketForm"
+import TicketForm from "@/components/Ticket/TicketForm/TicketForm"
 import { Flex } from "@chakra-ui/react"
-import Header from "@/components/Header"
+import Header from "@/components/UI/Header"
 import { ticketDetailsType } from "@/types/ticketTypes"
 import { useAtom } from "jotai"
 import { currentUserAtom } from "@/store/store"
-import { addItem } from "@/lib/tickets"
+import { addItem } from "@/lib/firebaseComms"
 import { useRouter } from "next/router"
 import Head from "next/head"
 

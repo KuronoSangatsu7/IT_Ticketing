@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
-import Layout from "@/components/Layout"
+import Layout from "@/components/UI/Layout"
 import { Cairo, Open_Sans } from "next/font/google"
 import useFirebaseSub from "@/hooks/use-firebase-sub"
 
